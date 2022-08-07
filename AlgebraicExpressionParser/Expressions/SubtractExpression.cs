@@ -7,7 +7,7 @@
     {
         /// <summary>
         ///   Creates <c>SubtractExpression</c> object representing 
-        ///   the difference of two <c>IExpression</c> objects.
+        ///   a difference of two <c>IExpression</c> objects.
         /// </summary>
         /// <param name="lhs">
         ///   Left-hand side expression.

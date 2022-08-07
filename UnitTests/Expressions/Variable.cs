@@ -8,7 +8,8 @@
         {
             var variable = new AlgebraicExpressionParser.Expressions.Variable();
 
-            Assert.AreEqual(3, variable.Interpret(new AlgebraicExpressionParser.Expressions.Context(3)));
+            var context = new AlgebraicExpressionParser.Expressions.Context(3);
+            Assert.AreEqual(3, variable.Interpret(context));
         }
 
         [TestMethod]
@@ -17,9 +18,9 @@
             var variableX = new AlgebraicExpressionParser.Expressions.Variable("x");
             var variableY = new AlgebraicExpressionParser.Expressions.Variable("y");
 
-            var context = new Dictionary<string, double> { { "x", 5 }, { "y", 12 } };
-            Assert.AreEqual(5, variableX.Interpret(new AlgebraicExpressionParser.Expressions.Context(context)));
-            Assert.AreEqual(12, variableY.Interpret(new AlgebraicExpressionParser.Expressions.Context(context)));
+            var context = new AlgebraicExpressionParser.Expressions.Context(new Dictionary<string, double> { { "x", 5 }, { "y", 12 } });
+            Assert.AreEqual(5, variableX.Interpret(context));
+            Assert.AreEqual(12, variableY.Interpret(context));
         }
     }
 }

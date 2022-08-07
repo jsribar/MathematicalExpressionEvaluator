@@ -8,7 +8,8 @@ namespace JSribar.AlgebraicExpressionParser.UnitTests.Expressions
         {
             var constant = new AlgebraicExpressionParser.Expressions.Constant(12);
 
-            Assert.AreEqual(12, constant.Interpret(new AlgebraicExpressionParser.Expressions.Context(3)));
+            var context = new AlgebraicExpressionParser.Expressions.Context(3);
+            Assert.AreEqual(12, constant.Interpret(context));
         }
     }
 }

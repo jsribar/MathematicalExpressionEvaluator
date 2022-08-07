@@ -21,8 +21,11 @@
             var rhs = new AlgebraicExpressionParser.Expressions.Constant(2);
             var sum = new AlgebraicExpressionParser.Expressions.SumExpression(lhs, rhs);
 
-            Assert.AreEqual(5, sum.Interpret(new AlgebraicExpressionParser.Expressions.Context(3)));
-            Assert.AreEqual(7, sum.Interpret(new AlgebraicExpressionParser.Expressions.Context(5)));
+            var context = new AlgebraicExpressionParser.Expressions.Context(3);
+            Assert.AreEqual(5, sum.Interpret(context));
+            
+            context = new AlgebraicExpressionParser.Expressions.Context(5);
+            Assert.AreEqual(7, sum.Interpret(context));
         }
 
         [TestMethod]
@@ -32,7 +35,8 @@
             var rhs = new AlgebraicExpressionParser.Expressions.Variable();
             var sum = new AlgebraicExpressionParser.Expressions.SumExpression(lhs, rhs);
 
-            Assert.AreEqual(8, sum.Interpret(new AlgebraicExpressionParser.Expressions.Context(4)));
+            var context = new AlgebraicExpressionParser.Expressions.Context(4);
+            Assert.AreEqual(8, sum.Interpret(context), 1e-10);
         }
 
         [TestMethod]
@@ -45,7 +49,9 @@
             var sum1 = new AlgebraicExpressionParser.Expressions.SumExpression(first, second);
             var sum2 = new AlgebraicExpressionParser.Expressions.SumExpression(sum1, third);
 
-            Assert.AreEqual(11, sum2.Interpret(new AlgebraicExpressionParser.Expressions.Context(4)));
+            var context = new AlgebraicExpressionParser.Expressions.Context(4);
+            Assert.AreEqual(6, sum1.Interpret(context), 1e-10);
+            Assert.AreEqual(11, sum2.Interpret(context), 1e-10);
         }
     }
 }

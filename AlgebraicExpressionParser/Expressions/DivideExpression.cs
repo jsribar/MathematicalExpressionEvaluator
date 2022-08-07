@@ -6,8 +6,8 @@
     public class DivideExpression : Expression
     {
         /// <summary>
-        ///   Creates <c>DivideExpression</c> representing quotient of two 
-        ///   <c>IExpression</c> objects.
+        ///   Creates <c>DivideExpression</c> representing a quotient 
+        ///   of two <c>IExpression</c> objects.
         /// </summary>
         /// <param name="lhs">
         ///   Left-hand side expression.
