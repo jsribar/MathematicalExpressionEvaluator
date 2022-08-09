@@ -606,7 +606,7 @@ namespace JSribar.AlgebraicExpressionParser
             while (topOperators.Count > 0)
             {
                 var @operator = topOperators.Pop();
-                if (functionMap.TryGetValue(@operator, out MathFunction.Function function))
+                if (functionMap.TryGetValue(@operator, out var function))
                 {
                     lhs = new MathFunction(function, lhs);
                 }
