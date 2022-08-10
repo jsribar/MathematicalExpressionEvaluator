@@ -8,7 +8,7 @@
         /// <summary>
         ///   Dictionary with variable names as keys and corresponding values.
         /// </summary>
-        private readonly Dictionary<string, double> values = new Dictionary<string, double>();
+        private readonly Dictionary<string, double> values = new();
 
         /// <summary>
         ///   Constructor for multiple variables.

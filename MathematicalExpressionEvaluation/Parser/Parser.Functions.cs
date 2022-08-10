@@ -38,7 +38,7 @@ namespace JSribar.MathematicalExpressionEvaluation
         /// <summary>
         ///   Mapping of string token to <c>Operator</c> enumeration.
         /// </summary>
-        private readonly Dictionary<string, Operator> functionTokenMap = new Dictionary<string, Operator> 
+        private readonly Dictionary<string, Operator> functionTokenMap = new()
         {
             { "sin", Operator.Sin },
             { "cos", Operator.Cos  },
@@ -58,7 +58,7 @@ namespace JSribar.MathematicalExpressionEvaluation
         /// <summary>
         ///   Mapping of <c>Operator</c> enumeration to function delegates for functions with single argument.
         /// </summary>
-        private readonly Dictionary<Operator, MathFunction.Function> functionMap = new Dictionary<Operator, MathFunction.Function> 
+        private readonly Dictionary<Operator, MathFunction.Function> functionMap = new()
         {
             { Operator.Sin, Math.Sin },
             { Operator.Cos, Math.Cos },
@@ -76,7 +76,7 @@ namespace JSribar.MathematicalExpressionEvaluation
         /// <summary>
         ///   Mapping of <c>Operator</c> enumeration to function delegates for functions with two arguments.
         /// </summary>
-        private readonly Dictionary<Operator, MathFunction2.Function> function2Map = new Dictionary<Operator, MathFunction2.Function> 
+        private readonly Dictionary<Operator, MathFunction2.Function> function2Map = new()
         {
             { Operator.Pow, Math.Pow },
             { Operator.Atan2, Math.Atan2 },
