@@ -1,4 +1,4 @@
-﻿namespace JSribar.AlgebraicExpressionParser.Expressions
+﻿namespace JSribar.MathematicalExpressionEvaluation.Expressions
 {
     /// <summary>
     ///   Expression corresponding to arbitrary named variable.

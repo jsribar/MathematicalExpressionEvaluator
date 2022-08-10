@@ -1,4 +1,4 @@
-﻿namespace JSribar.AlgebraicExpressionParser.Expressions
+﻿namespace JSribar.MathematicalExpressionEvaluation.Expressions
 {
     /// <summary>
     ///   Class representing sum of two expressions.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSribar.AlgebraicExpressionParser.Expressions
+namespace JSribar.MathematicalExpressionEvaluation.Expressions
 {
     /// <summary>
     ///   Class representing a power of base onto an exponent.

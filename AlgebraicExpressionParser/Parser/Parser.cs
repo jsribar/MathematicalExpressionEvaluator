@@ -1,14 +1,14 @@
-﻿using JSribar.AlgebraicExpressionParser.Expressions;
+﻿using JSribar.MathematicalExpressionEvaluation.Expressions;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace JSribar.AlgebraicExpressionParser
+namespace JSribar.MathematicalExpressionEvaluation
 {
     /// <summary>
     ///   Class that parses a string with mathematical expression and evaluates
     ///   the resulting <c>Expression</c> object.
     /// </summary>
-    public class Parser
+    public partial class Parser
     {
         /// <summary>
         ///   Specifies current state of the parsing process.
@@ -20,114 +20,36 @@ namespace JSribar.AlgebraicExpressionParser
         }
 
         /// <summary>
-        ///   Operators supported.
-        /// </summary>
-        private enum Operator
-        {
-            Comma,
-            Addition,
-            Subtraction,
-            Multiplication,
-            Division,
-            Power,
-            LeftParenthesis,
-            LeftFunctionParenthesis,
-            Minus,
-            // functions
-            Sin,
-            Cos,
-            Tan,
-            Sqrt,
-            Exp,
-            Log,
-            Log10,
-            Asin,
-            Acos,
-            Atan,
-            Abs,
-            Pow,
-        }
-
-        /// <summary>
-        ///   Mapping of string token to <c>Operator</c> enumeration.
-        /// </summary>
-        private readonly Dictionary<string, Operator> functionTokenMap = new Dictionary<string, Operator> {
-            { "sin", Operator.Sin },
-            { "cos", Operator.Cos  },
-            { "tan", Operator.Tan },
-            { "sqrt", Operator.Sqrt },
-            { "exp", Operator.Exp },
-            { "ln", Operator.Log  },
-            { "log", Operator.Log10 },
-            { "asin", Operator.Asin },
-            { "acos", Operator.Acos },
-            { "atan", Operator.Atan },
-            { "abs", Operator.Abs },
-            { "pow", Operator.Pow },
-        };
-
-        /// <summary>
-        ///   Mapping of <c>Operator</c> enumeration to function delegates.
-        /// </summary>
-        private readonly Dictionary<Operator, MathFunction.Function> functionMap = new Dictionary<Operator, MathFunction.Function> {
-            { Operator.Sin, Math.Sin },
-            { Operator.Cos, Math.Cos },
-            { Operator.Tan, Math.Tan},
-            { Operator.Sqrt, Math.Sqrt },
-            { Operator.Exp, Math.Exp},
-            { Operator.Log, Math.Log },
-            { Operator.Log10, Math.Log10 },
-            { Operator.Asin, Math.Asin },
-            { Operator.Acos, Math.Acos },
-            { Operator.Atan, Math.Atan },
-            { Operator.Abs, Math.Abs },
-        };
-
-        private readonly Dictionary<Operator, MathFunction2.Function> function2Map = new Dictionary<Operator, MathFunction2.Function> {
-            { Operator.Pow, Math.Pow },
-        };
-
-        /// <summary>
-        ///   Mapping of string token to mathematical constant values.
-        /// </summary>
-        private readonly Dictionary<string, double> mathematicalConstantsMap = new Dictionary<string, double> {
-            { "PI", Math.PI },
-            { "E", Math.E  },
-        };
-
-        /// <summary>
         ///   Set of supported variable identifiers.
         /// </summary>
-        private readonly HashSet<string> variableNames = new HashSet<string>();
+        private readonly HashSet<string> variableNames = new();
 
         /// <summary>
         ///   Stack with operators to be processed. On successful parsing this 
         ///   stack should be empty.
         /// </summary>
-        private readonly Stack<Operator> operators = new Stack<Operator>();
+        private readonly Stack<Operator> operators = new();
 
         /// <summary>
         ///   Output stack where results are pushed. On successful parsing this 
         ///   stack should contain the final expression only.
         /// </summary>
-        private readonly Stack<IExpression> output = new Stack<IExpression>();
+        private readonly Stack<IExpression> output = new();
 
+        private class FunctionOperands
+        {
+            public FunctionOperands(Operator function)
+            {
+                Function = function;
+                Operands = 0;
+            }
+            public readonly Operator Function;
+            public int Operands;
+        }
         /// <summary>
-        ///   Parser exception messages.
+        ///   Stack with functions and number of arguments. Used to check number of arguments.
         /// </summary>
-        public const string DuplicateDecimalSeparator = "Duplicate decimal separator";
-        public const string ExpressionTerminatedUnexpectedly = "Expression terminated unexpectedly";
-        public const string FunctionNotFollowedByLeftParenthesis = "Function name not followerd by left parenthesis";
-        public const string InvalidCharacter = "Invalid character";
-        public const string InvalidNumberFormat = "Invalid number format";
-        public const string InvalidOperator = "Invalid operator";
-        public const string MissingLeftParenthesis = "Missing or mismatched left parentesis";
-        public const string MissingRightParenthesis = "Missing or mismatched right parentesis";
-        public const string UnexpectedComma = "Unexpected comma";
-        public const string UnexpectedRigthParenthesis = "Unexpected right parenthesis";
-        public const string UnexpectedSign = "Unexpected sign";
-        public const string UnexpectedSpace = "Unexpected space";
-        public const string UnknownIdentifier = "Unknown identifier";
+        private readonly Stack<FunctionOperands> functions = new();
 
         /// <summary>
         ///   Creates <c>Parser</c> for expressions with a single variable 'x'.
@@ -217,7 +139,7 @@ namespace JSribar.AlgebraicExpressionParser
                                 {
                                     throw new ParserException(UnexpectedComma, pos);
                                 }
-                                ProcessComma();
+                                ProcessComma(pos);
                                 state = ParserState.AfterOperator;
                                 break;
                             default:
@@ -245,7 +167,7 @@ namespace JSribar.AlgebraicExpressionParser
         /// <param name="pos">
         ///   Position where space sequence starts.
         /// </param>
-        private void SkipWhiteSpaces(string text, ref int pos)
+        private static void SkipWhiteSpaces(string text, ref int pos)
         {
             while (pos < text.Length && text[pos] == ' ')
             {
@@ -350,10 +272,24 @@ namespace JSribar.AlgebraicExpressionParser
                     throw new ParserException(InvalidOperator, pos);
             }
         }
-        bool IsLeftParenthesis(Operator @operator)
+
+        /// <summary>
+        ///   Checks if <c>Operator</c> provided is left parenthesis, either opening 
+        ///   a list of function arguments (<c>Operator.LeftFunctionParenthesis</c>) 
+        ///   or starting a subexpression (<c>Operator.LeftParenthesis</c>).
+        /// </summary>
+        /// <param name="operator">
+        ///   <c>Operator</c> to check.
+        /// </param>
+        /// <returns>
+        ///   <c>true</c> if operator is <c>Operator.LeftFunctionParenthesis</c> or
+        ///   <c>Operator.LeftParenthesis</c>. Else returns <c>false</c>:
+        /// </returns>
+        private static bool IsLeftParenthesis(Operator @operator)
         {
-            return @operator == Operator.LeftParenthesis || @operator == Operator.LeftFunctionParenthesis;   
+            return @operator == Operator.LeftParenthesis || @operator == Operator.LeftFunctionParenthesis;
         }
+
         /// <summary>
         ///   Evaluates remaining operators from the operator stack, 
         /// </summary>
@@ -387,7 +323,7 @@ namespace JSribar.AlgebraicExpressionParser
         /// <returns>
         ///   String with identifier.
         /// </returns>
-        private string GetIdentifier(string text, int pos)
+        private static string GetIdentifier(string text, int pos)
         {
             if (char.IsLetter(text[pos]))
             {
@@ -397,7 +333,7 @@ namespace JSribar.AlgebraicExpressionParser
                     ++i;
                 }
                 while (i < text.Length && Char.IsLetterOrDigit(text[i]));
-                return text.Substring(pos, i - pos);
+                return text[pos..i];
             }
             return string.Empty;
         }
@@ -442,7 +378,7 @@ namespace JSribar.AlgebraicExpressionParser
             }
             // Leading spaces should be eliminated already and trailing spaces will be handled separately, so we set number style accordingly.
             // Decimal separator must be a point so we set formatProvider to CultureInfo.InvariantCulture.
-            if (double.TryParse(text.Substring(start, pos - start), NumberStyles.None | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture, out double value))
+            if (double.TryParse(text.AsSpan(start, pos - start), NumberStyles.None | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture, out double value))
             {
                 output.Push(new Constant(value));
                 return;
@@ -468,6 +404,7 @@ namespace JSribar.AlgebraicExpressionParser
             if (functionTokenMap.TryGetValue(functionName, out Operator function))
             {
                 operators.Push(function);
+                functions.Push(new FunctionOperands(function));
                 pos += functionName.Length;
                 return true;
             }
@@ -554,15 +491,28 @@ namespace JSribar.AlgebraicExpressionParser
             {
                 EvaluateExpressionFromTop();
             }
-            operators.Pop();
+            var parenthesis = operators.Pop();
+            if (parenthesis == Operator.LeftFunctionParenthesis && ++functions.Peek().Operands < NumberOfOperands(functions.Peek().Function))
+            {
+                throw new ParserException(FunctionHasToFewArguments, pos);
+            }
         }
 
-        private void ProcessComma()
+        /// <summary>
+        ///   Evaluates expression left from comma up to previous comma or function 
+        ///   left parenthesis.
+        /// </summary>
+        private void ProcessComma(int pos)
         {
             while (operators.Peek() != Operator.LeftFunctionParenthesis && operators.Peek() != Operator.Comma)
             {
                 EvaluateExpressionFromTop();
             }
+            if (++functions.Peek().Operands >= NumberOfOperands(functions.Peek().Function))
+            {
+                throw new ParserException(FunctionHasToManyArguments, pos);
+            }
+
             operators.Push(Operator.Comma);
         }
 
@@ -576,7 +526,7 @@ namespace JSribar.AlgebraicExpressionParser
         ///   Integer represeting precedence level. Higher values represent 
         ///   higher precedence.
         /// </returns>
-        private int GetPrecedence(Operator @operator)
+        private static int GetPrecedence(Operator @operator)
         {
             switch (@operator)
             {
@@ -594,8 +544,37 @@ namespace JSribar.AlgebraicExpressionParser
                 case Operator.LeftFunctionParenthesis:
                 case Operator.Minus:
                     return 4;
+                default:
+                    break;
             }
             return 5;
+        }
+
+        /// <summary>
+        ///   Evaluates number of operands <c>Operator</c> provided requires.
+        /// </summary>
+        /// <param name="operator">
+        ///   <c>Operator</c> for which evaluation is done is done.
+        /// </param>
+        /// <returns>
+        ///   Number of operands. 
+        /// </returns>
+        private int NumberOfOperands(Operator @operator)
+        {
+            switch (@operator)
+            {
+                case Operator.Addition:
+                case Operator.Subtraction:
+                case Operator.Multiplication:
+                case Operator.Division:
+                case Operator.Power:
+                    return 2;
+            }
+            if (function2Map.ContainsKey(@operator))
+            {
+                return 2;
+            }
+            return 1;
         }
 
         /// <summary>
@@ -610,8 +589,8 @@ namespace JSribar.AlgebraicExpressionParser
         {
             Debug.Assert(operators.Count > 0 && output.Count > 0);
             // Local stacks for evaluation from left to right.
-            Stack<IExpression> topExpressions = new Stack<IExpression>();
-            Stack<Operator> topOperators = new Stack<Operator>();
+            Stack<IExpression> topExpressions = new();
+            Stack<Operator> topOperators = new();
 
             int precedence = GetPrecedence(operators.Peek());
             topExpressions.Push(output.Pop());
@@ -623,17 +602,11 @@ namespace JSribar.AlgebraicExpressionParser
                     break;
                 }
                 topOperators.Push(topOperator);
-                // For binary operation, additional operand is required.
-                switch (topOperator)
+                // If additional operands are required, push them to output.
+                int n = NumberOfOperands(topOperator);
+                while (--n > 0)
                 {
-                    case Operator.Addition:
-                    case Operator.Subtraction:
-                    case Operator.Multiplication:
-                    case Operator.Division:
-                    case Operator.Power:
-                    case Operator.Pow:
-                        topExpressions.Push(output.Pop());
-                        break;
+                    topExpressions.Push(output.Pop());
                 }
             } while (operators.Count > 0 && GetPrecedence(operators.Peek()) == precedence && !IsLeftParenthesis(operators.Peek()));
 
@@ -646,11 +619,13 @@ namespace JSribar.AlgebraicExpressionParser
                 if (functionMap.TryGetValue(@operator, out var function))
                 {
                     lhs = new MathFunction(function, lhs);
+                    functions.Pop();
                 }
                 else if (function2Map.TryGetValue(@operator, out var function2))
                 {
                     var rhs = topExpressions.Pop();
                     lhs = new MathFunction2(function2, lhs, rhs);
+                    functions.Pop();
                 }
                 else if (@operator == Operator.Minus)
                 {
@@ -702,7 +677,7 @@ namespace JSribar.AlgebraicExpressionParser
         /// <returns>
         ///   Resulting <c>Expression</c> object.
         /// </returns>
-        private IExpression EvaluateBinaryOperation(Operator @operator, IExpression lhs, IExpression rhs)
+        private static IExpression EvaluateBinaryOperation(Operator @operator, IExpression lhs, IExpression rhs)
         {
             switch (@operator)
             {
