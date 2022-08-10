@@ -152,6 +152,42 @@
                 Assert.AreEqual(6, e.Position);
                 Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedRigthParenthesis, e.Message);
             }
+
+            try
+            {
+                var parser = new MathematicalExpressionEvaluation.Parser();
+                parser.Parse("pow(pow(1,2),)");
+                Assert.Fail();
+            }
+            catch (ParserException e)
+            {
+                Assert.AreEqual(13, e.Position);
+                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedRigthParenthesis, e.Message);
+            }
+
+            try
+            {
+                var parser = new MathematicalExpressionEvaluation.Parser();
+                parser.Parse("pow(pow(1,),2)");
+                Assert.Fail();
+            }
+            catch (ParserException e)
+            {
+                Assert.AreEqual(10, e.Position);
+                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedRigthParenthesis, e.Message);
+            }
+
+            try
+            {
+                var parser = new MathematicalExpressionEvaluation.Parser();
+                parser.Parse("pow(pow(1,2),pow(2,))");
+                Assert.Fail();
+            }
+            catch (ParserException e)
+            {
+                Assert.AreEqual(19, e.Position);
+                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedRigthParenthesis, e.Message);
+            }
         }
     }
 }
