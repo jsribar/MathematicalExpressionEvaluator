@@ -1,4 +1,7 @@
-﻿namespace Expressions
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluation;
+
+namespace Expressions
 {
     [TestClass]
     public class SumExpression

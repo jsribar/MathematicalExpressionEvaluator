@@ -1,4 +1,5 @@
 ﻿using JSribar.MathematicalExpressionEvaluation.Expressions;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -22,19 +23,19 @@ namespace JSribar.MathematicalExpressionEvaluation
         /// <summary>
         ///   Set of supported variable identifiers.
         /// </summary>
-        private readonly HashSet<string> variableNames = new();
+        private readonly HashSet<string> variableNames = new HashSet<string>();
 
         /// <summary>
         ///   Stack with operators to be processed. On successful parsing this 
         ///   stack should be empty.
         /// </summary>
-        private readonly Stack<Operator> operators = new();
+        private readonly Stack<Operator> operators = new Stack<Operator>();
 
         /// <summary>
         ///   Output stack where results are pushed. On successful parsing this 
         ///   stack should contain the final expression only.
         /// </summary>
-        private readonly Stack<IExpression> output = new();
+        private readonly Stack<IExpression> output = new Stack<IExpression>();
 
         private class FunctionOperands
         {
@@ -49,7 +50,7 @@ namespace JSribar.MathematicalExpressionEvaluation
         /// <summary>
         ///   Stack with functions and number of arguments. Used to check number of arguments.
         /// </summary>
-        private readonly Stack<FunctionOperands> functions = new();
+        private readonly Stack<FunctionOperands> functions = new Stack<FunctionOperands>();
 
         /// <summary>
         ///   Creates <c>Parser</c> for expressions with a single variable 'x'.
@@ -332,8 +333,8 @@ namespace JSribar.MathematicalExpressionEvaluation
                 {
                     ++i;
                 }
-                while (i < text.Length && Char.IsLetterOrDigit(text[i]));
-                return text[pos..i];
+                while (i < text.Length && char.IsLetterOrDigit(text[i]));
+                return text.Substring(pos, i - pos);
             }
             return string.Empty;
         }
@@ -378,7 +379,7 @@ namespace JSribar.MathematicalExpressionEvaluation
             }
             // Leading spaces should be eliminated already and trailing spaces will be handled separately, so we set number style accordingly.
             // Decimal separator must be a point so we set formatProvider to CultureInfo.InvariantCulture.
-            if (double.TryParse(text.AsSpan(start, pos - start), NumberStyles.None | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture, out double value))
+            if (double.TryParse(text.Substring(start, pos - start), NumberStyles.None | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent, CultureInfo.InvariantCulture, out double value))
             {
                 output.Push(new Constant(value));
                 return;
@@ -589,8 +590,8 @@ namespace JSribar.MathematicalExpressionEvaluation
         {
             Debug.Assert(operators.Count > 0 && output.Count > 0);
             // Local stacks for evaluation from left to right.
-            Stack<IExpression> topExpressions = new();
-            Stack<Operator> topOperators = new();
+            Stack<IExpression> topExpressions = new Stack<IExpression>();
+            Stack<Operator> topOperators = new Stack<Operator>();
 
             int precedence = GetPrecedence(operators.Peek());
             topExpressions.Push(output.Pop());

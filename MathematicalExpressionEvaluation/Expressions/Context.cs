@@ -1,4 +1,6 @@
-﻿namespace JSribar.MathematicalExpressionEvaluation.Expressions
+﻿using System.Collections.Generic;
+
+namespace JSribar.MathematicalExpressionEvaluation.Expressions
 {
     /// <summary>
     ///   Class representing evaluation context;
@@ -8,7 +10,7 @@
         /// <summary>
         ///   Dictionary with variable names as keys and corresponding values.
         /// </summary>
-        private readonly Dictionary<string, double> values = new();
+        private readonly Dictionary<string, double> values = new Dictionary<string, double>();
 
         /// <summary>
         ///   Constructor for multiple variables.

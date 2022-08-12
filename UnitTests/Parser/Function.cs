@@ -1,4 +1,8 @@
-﻿namespace Parser
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluation;
+using ParserException = JSribar.MathematicalExpressionEvaluation.ParserException;
+
+namespace Parser
 {
     [TestClass]
     public class Function
