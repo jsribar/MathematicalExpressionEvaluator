@@ -16,6 +16,7 @@ namespace JSribar.MathematicalExpressionEvaluator
 		private readonly Dictionary<string, double> mathematicalConstantsMap = new Dictionary<string, double>()
 		{
 			{ "PI", Math.PI },
+			{ "π", Math.PI },
 			{ "E", Math.E  },
 		};
 	}

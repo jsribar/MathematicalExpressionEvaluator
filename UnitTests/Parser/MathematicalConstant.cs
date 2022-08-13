@@ -20,6 +20,8 @@ namespace Parser
         {
             var parser = new MathematicalExpressionEvaluation.Parser();
             Assert.AreEqual(-1, parser.Parse("cos(PI)").Interpret(new MathematicalExpressionEvaluation.Expressions.Context(5)), 1e-10);
+
+            Assert.AreEqual(-1, parser.Parse("cos(π)").Interpret(new MathematicalExpressionEvaluation.Expressions.Context(5)), 1e-10);
         }
 
         [TestMethod]
