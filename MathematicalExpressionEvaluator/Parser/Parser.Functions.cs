@@ -6,6 +6,20 @@ namespace JSribar.MathematicalExpressionEvaluator
 {
     public partial class Parser
     {
+        public void AddFunction(string name, MathFunction.Function function)
+        {
+            functionTokenMap.Add(name, (Operator)nextOperator);
+            functionMap.Add((Operator)nextOperator, function);
+            ++nextOperator;
+        }
+
+        public void AddFunction2(string name, MathFunction2.Function function)
+        {
+            functionTokenMap.Add(name, (Operator)nextOperator);
+            function2Map.Add((Operator)nextOperator, function);
+            ++nextOperator;
+        }
+
         /// <summary>
         ///   Operators supported.
         /// </summary>
@@ -45,6 +59,8 @@ namespace JSribar.MathematicalExpressionEvaluator
             Atan2,
             Pow,
         }
+
+        private int nextOperator = Enum.GetValues(typeof(Operator)).Length;
 
         /// <summary>
         ///   Mapping of string token to <c>Operator</c> enumeration.
