@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace JSribar.MathematicalExpressionEvaluation.Expressions
+namespace JSribar.MathematicalExpressionEvaluator.Expressions
 {
     /// <summary>
     ///   Class representing evaluation context;

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MathematicalExpressionEvaluation\MathematicalExpressionEvaluation.csproj" />
+    <ProjectReference Include="..\MathematicalExpressionEvaluator\MathematicalExpressionEvaluator.csproj" />
   </ItemGroup>
 
 </Project>

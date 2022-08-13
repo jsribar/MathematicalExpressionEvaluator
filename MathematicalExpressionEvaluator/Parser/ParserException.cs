@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JSribar.MathematicalExpressionEvaluation
+namespace JSribar.MathematicalExpressionEvaluator
 {
     /// <summary>
     ///   Exception thrown by <c>Parser</c>.

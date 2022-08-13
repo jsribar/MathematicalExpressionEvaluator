@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JSribar.MathematicalExpressionEvaluation.Expressions
+namespace JSribar.MathematicalExpressionEvaluator.Expressions
 {
     /// <summary>
     ///   Class representing a power of base onto an exponent.

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluation;
+using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluator;
 
 namespace Expressions
 {

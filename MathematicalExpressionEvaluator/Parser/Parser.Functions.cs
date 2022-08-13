@@ -1,8 +1,8 @@
-﻿using JSribar.MathematicalExpressionEvaluation.Expressions;
+﻿using JSribar.MathematicalExpressionEvaluator.Expressions;
 using System;
 using System.Collections.Generic;
 
-namespace JSribar.MathematicalExpressionEvaluation
+namespace JSribar.MathematicalExpressionEvaluator
 {
     public partial class Parser
     {

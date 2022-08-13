@@ -1,4 +1,4 @@
-﻿namespace JSribar.MathematicalExpressionEvaluation.Expressions
+﻿namespace JSribar.MathematicalExpressionEvaluator.Expressions
 {
     /// <summary>
     ///   Class representing a difference of two expressions.

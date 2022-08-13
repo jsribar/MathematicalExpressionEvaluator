@@ -1,4 +1,4 @@
-﻿namespace JSribar.MathematicalExpressionEvaluation
+﻿namespace JSribar.MathematicalExpressionEvaluator
 {
 	public partial class Parser
 	{

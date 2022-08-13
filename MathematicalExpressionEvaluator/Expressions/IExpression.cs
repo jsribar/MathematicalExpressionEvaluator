@@ -1,4 +1,4 @@
-﻿namespace JSribar.MathematicalExpressionEvaluation.Expressions
+﻿namespace JSribar.MathematicalExpressionEvaluator.Expressions
 {
     /// <summary>
     ///   Interfece common to all expression objects.

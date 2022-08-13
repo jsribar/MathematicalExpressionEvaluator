@@ -1,9 +1,9 @@
-﻿using JSribar.MathematicalExpressionEvaluation.Expressions;
+﻿using JSribar.MathematicalExpressionEvaluator.Expressions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace JSribar.MathematicalExpressionEvaluation
+namespace JSribar.MathematicalExpressionEvaluator
 {
     /// <summary>
     ///   Class that parses a string with mathematical expression and evaluates
@@ -531,8 +531,6 @@ namespace JSribar.MathematicalExpressionEvaluation
         {
             switch (@operator)
             {
-                case Operator.Comma:
-                    return 0;
                 case Operator.Addition:
                 case Operator.Subtraction:
                     return 1;
