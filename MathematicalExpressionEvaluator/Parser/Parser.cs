@@ -37,20 +37,50 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// </summary>
         private readonly Stack<IExpression> output = new Stack<IExpression>();
 
-        private class FunctionOperands
+        /// <summary>
+        ///   Class containing information on a function and number of 
+        ///   arguments consumed.
+        /// </summary>
+        private class FunctionArguments
         {
-            public FunctionOperands(Operator function)
+            /// <summary>
+            ///   Creates <c>FunctionArguments</c> object.
+            /// </summary>
+            /// <param name="function">
+            ///   <c>Operator</c> representing the function.
+            /// </param>
+            public FunctionArguments(Operator function)
             {
                 Function = function;
-                Operands = 0;
+                ArgumentsConsumed = 0;
             }
+
+            /// <summary>
+            ///   Increments the number of arguments processed and returns 
+            ///   incemented number.
+            /// </summary>
+            /// <returns>Current number of processed arguments.</returns>
+            public int IncrementArgumentsConsumed()
+            {
+                return ++ArgumentsConsumed;
+            }
+
+            /// <summary>
+            ///   <c>Operator</c> representing the function.
+            /// </summary>
             public readonly Operator Function;
-            public int Operands;
+
+            /// <summary>
+            ///   Number of function arguments consumed. 
+            /// </summary>
+            private int ArgumentsConsumed;
         }
+
         /// <summary>
-        ///   Stack with functions and number of arguments. Used to check number of arguments.
+        ///   Stack with functions and number of arguments. Used to check number
+        ///   of consumend arguments and provide detail error description.
         /// </summary>
-        private readonly Stack<FunctionOperands> functions = new Stack<FunctionOperands>();
+        private readonly Stack<FunctionArguments> functions = new Stack<FunctionArguments>();
 
         /// <summary>
         ///   Creates <c>Parser</c> for expressions with a single variable 'x'.
@@ -405,7 +435,7 @@ namespace JSribar.MathematicalExpressionEvaluator
             if (functionTokenMap.TryGetValue(functionName, out Operator function))
             {
                 operators.Push(function);
-                functions.Push(new FunctionOperands(function));
+                functions.Push(new FunctionArguments(function));
                 pos += functionName.Length;
                 return true;
             }
@@ -493,7 +523,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                 EvaluateExpressionFromTop();
             }
             var parenthesis = operators.Pop();
-            if (parenthesis == Operator.LeftFunctionParenthesis && ++functions.Peek().Operands < NumberOfOperands(functions.Peek().Function))
+            if (parenthesis == Operator.LeftFunctionParenthesis && functions.Peek().IncrementArgumentsConsumed() < NumberOfOperands(functions.Peek().Function))
             {
                 throw new ParserException(FunctionHasToFewArguments, pos);
             }
@@ -503,17 +533,19 @@ namespace JSribar.MathematicalExpressionEvaluator
         ///   Evaluates expression left from comma up to previous comma or function 
         ///   left parenthesis.
         /// </summary>
+        /// <param name="pos">
+        ///   Position of the right parenthesis used for error reporting.
+        /// </param>
         private void ProcessComma(int pos)
         {
             while (operators.Peek() != Operator.LeftFunctionParenthesis && operators.Peek() != Operator.Comma)
             {
                 EvaluateExpressionFromTop();
             }
-            if (++functions.Peek().Operands >= NumberOfOperands(functions.Peek().Function))
+            if (functions.Peek().IncrementArgumentsConsumed() >= NumberOfOperands(functions.Peek().Function))
             {
                 throw new ParserException(FunctionHasToManyArguments, pos);
             }
-
             operators.Push(Operator.Comma);
         }
 
@@ -550,7 +582,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         }
 
         /// <summary>
-        ///   Evaluates number of operands <c>Operator</c> provided requires.
+        ///   Evaluates number of operands which <c>Operator</c> provided requires.
         /// </summary>
         /// <param name="operator">
         ///   <c>Operator</c> for which evaluation is done is done.

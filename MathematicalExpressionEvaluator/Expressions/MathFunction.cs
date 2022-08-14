@@ -17,8 +17,8 @@
         public delegate double Function(double argument);
 
         /// <summary>
-        ///   Creates <c>MathFunctio</c> object representing 
-        ///   a call of a function.
+        ///   Creates <c>MathFunction</c> object representing a call of a 
+        ///   function.
         /// </summary>
         /// <param name="argument">
         ///   <c>IExpression</c> passed as an argument to function.
@@ -30,8 +30,8 @@
         }
 
         /// <summary>
-        ///   Evaluates the value of function assigned for the 
-        ///   <c>Context</c> provided.
+        ///   Evaluates the value of function assigned for the <c>Context</c> 
+        ///   provided.
         /// </summary>
         /// <param name="context">
         ///   <c>Context</c> object with current values of variables.
@@ -50,7 +50,7 @@
         private readonly Function function;
 
         /// <summary>
-        ///   Argument passed as an argument to the function.
+        ///   <c>IExpression</c> passed as an argument to the function.
         /// </summary>
         private readonly IExpression argument;
     }

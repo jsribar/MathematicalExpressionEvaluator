@@ -6,6 +6,15 @@ namespace JSribar.MathematicalExpressionEvaluator
 {
     public partial class Parser
     {
+        /// <summary>
+        ///   Adds a new custom function that accepts single argument.
+        /// </summary>
+        /// <param name="name">
+        ///   Identifier of the function.
+        /// </param>
+        /// <param name="function">
+        ///   Function to be invoked.
+        /// </param>
         public void AddFunction(string name, MathFunction.Function function)
         {
             functionTokenMap.Add(name, (Operator)nextOperator);
@@ -13,6 +22,15 @@ namespace JSribar.MathematicalExpressionEvaluator
             ++nextOperator;
         }
 
+        /// <summary>
+        ///   Adds a new custom function that accepts two arguments.
+        /// </summary>
+        /// <param name="name">
+        ///   Identifier of the function.
+        /// </param>
+        /// <param name="function">
+        ///   Function to be invoked.
+        /// </param>
         public void AddFunction2(string name, MathFunction2.Function function)
         {
             functionTokenMap.Add(name, (Operator)nextOperator);
@@ -60,6 +78,9 @@ namespace JSribar.MathematicalExpressionEvaluator
             Pow,
         }
 
+        /// <summary>
+        ///   Next available value for custom functions.
+        /// </summary>
         private int nextOperator = Enum.GetValues(typeof(Operator)).Length;
 
         /// <summary>
