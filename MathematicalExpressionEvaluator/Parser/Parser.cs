@@ -117,6 +117,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         {
             operators.Clear();
             output.Clear();
+            functions.Clear();
             ParserState state = ParserState.AfterOperator;
 
             for (int pos = 0; pos < text.Length;)
@@ -228,6 +229,8 @@ namespace JSribar.MathematicalExpressionEvaluator
             {
                 case ' ':
                     throw new ParserException(UnexpectedSpace, pos);
+                case ',':
+                    throw new ParserException(UnexpectedComma, pos);
                 case '-':
                 case '+':
                     throw new ParserException(UnexpectedSign, pos);
