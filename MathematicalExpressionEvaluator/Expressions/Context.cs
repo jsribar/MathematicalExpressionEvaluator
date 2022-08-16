@@ -45,7 +45,15 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// </returns>
         public double GetValue(string variableName)
         {
+            try
+            {
             return values[variableName];
+
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new VariableValueNotDefinedException("Value of a variable not provided.", variableName, e);
+            }
         }
 
         /// <summary>
