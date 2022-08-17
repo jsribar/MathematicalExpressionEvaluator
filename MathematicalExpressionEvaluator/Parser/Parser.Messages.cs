@@ -32,7 +32,9 @@ namespace JSribar.MathematicalExpressionEvaluator
 		public const string FunctionHasToFewArguments = "Function has too few arguments";
 		public const string FunctionHasToManyArguments = "Function has too many arguments";
 		public const string FunctionNotFollowedByLeftParenthesis = "Function name not followerd by left parenthesis";
+		public const string IdentifierAlreadyUsed = "Identifier is already used";
 		public const string InvalidCharacter = "Invalid character";
+		public const string InvalidIdentifier = "Invalid identifier";
 		public const string InvalidNumberFormat = "Invalid number format";
 		public const string InvalidOperator = "Invalid operator";
 		public const string MissingLeftParenthesis = "Missing or mismatched left parentesis";

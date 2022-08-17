@@ -38,6 +38,7 @@ namespace JSribar.MathematicalExpressionEvaluator
 		/// </param>
 		public void AddConstant(string name, double value)
 		{
+            CheckIdentifier(name);
             mathematicalConstantsMap.Add(name, value);
         }
 

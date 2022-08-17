@@ -39,6 +39,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// </param>
         public void AddFunction(string name, MathFunction.Function function)
         {
+            CheckIdentifier(name);
             functionTokenMap.Add(name, (Operator)nextOperator);
             functionMap.Add((Operator)nextOperator, function);
             ++nextOperator;

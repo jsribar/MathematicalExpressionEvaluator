@@ -24,6 +24,7 @@ using JSribar.MathematicalExpressionEvaluator.Expressions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 
 namespace JSribar.MathematicalExpressionEvaluator
 {
@@ -45,7 +46,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// <summary>
         ///   Set of supported variable identifiers.
         /// </summary>
-        private readonly HashSet<string> variableNames = new HashSet<string>();
+        private readonly HashSet<string> variableIdentifiers = new HashSet<string>();
 
         /// <summary>
         ///   Stack with operators to be processed. On successful parsing this 
@@ -109,18 +110,82 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// </summary>
         public Parser()
         {
-            variableNames = new HashSet<string> { "x" };
+            variableIdentifiers = new HashSet<string> { "x" };
         }
 
         /// <summary>
         ///   Creates <c>Parser</c> for expressions with custom variables.
         /// </summary>
-        /// <param name="variableNames">
+        /// <param name="variableIdentifiers">
         ///   Collection of variable identifiers.
         /// </param>
-        public Parser(ICollection<string> variableNames)
+        public Parser(ICollection<string> variableIdentifiers)
         {
-            this.variableNames = new HashSet<string>(variableNames);
+            foreach (string name in variableIdentifiers)
+            {
+                CheckIdentifier(name);
+            }
+            this.variableIdentifiers = new HashSet<string>(variableIdentifiers);
+        }
+
+        /// <summary>
+        ///   Checks if name is not already used for another identifier and if 
+        ///   it has a valid format: first character must be a letter, 
+        ///   following characters must be a letter or digit. If check fails,
+        ///   <c>IdentifierException</c> is thrown.
+        /// </summary>
+        /// <param name="name">
+        ///   Name to check.
+        /// </param>
+        /// <exception cref="IdentifierException">
+        ///   If name is already used or if name has invalid format, 
+        ///   <c>IdentifierException</c> is thrown.
+        /// </exception>
+        private void CheckIdentifier(string name)
+        {
+            if (IsIdentifierAlreadyUsed(name))
+            {
+                throw new IdentifierException(IdentifierAlreadyUsed, name);
+            }
+            if (!IsValidIdentifier(name))
+            {
+                throw new IdentifierException(InvalidIdentifier, name);
+            }
+        }
+
+        /// <summary>
+        ///   Checks if name is already used as identifier.
+        /// </summary>
+        /// <param name="name">
+        ///   Name to check.
+        /// </param>
+        /// <returns>
+        ///   <c>true</c> if name is already used as identifier, otherwise 
+        ///   returns <c>false</c>.
+        /// </returns>
+        private bool IsIdentifierAlreadyUsed(string name)
+        {
+            return functionTokenMap.ContainsKey(name) || mathematicalConstantsMap.ContainsKey(name);
+        }
+
+        /// <summary>
+        ///   Checks if name has a valid format: first character must be a 
+        ///   letter, followed by letters or digits.
+        /// </summary>
+        /// <param name="name">
+        ///   Name to check.
+        /// </param>
+        /// <returns>
+        ///   <c>true</c> if name is valid, otherwise returns <c>false</c>.
+        /// </returns>
+        public static bool IsValidIdentifier(string name)
+        {
+            if (name.Length == 0 || !char.IsLetter(name[0]))
+            {
+                return false;
+            }
+            name = name.Substring(1);
+            return name.Length == 0 || name.All(c => char.IsLetterOrDigit(c));
         }
 
         /// <summary>
@@ -488,7 +553,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// </returns>
         private bool PushVariable(string variableName, ref int pos)
         {
-            if (variableNames.Contains(variableName))
+            if (variableIdentifiers.Contains(variableName))
             {
                 output.Push(new Variable(variableName));
                 pos += variableName.Length;
