@@ -142,6 +142,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                                 switch (text[pos])
                                 {
                                     case '-':
+                                    case '−': // U+2212
                                         operators.Push(Operator.Minus);
                                         ++pos;
                                         break;
@@ -232,6 +233,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                 case ',':
                     throw new ParserException(UnexpectedComma, pos);
                 case '-':
+                case '−': // U+2212
                 case '+':
                     throw new ParserException(UnexpectedSign, pos);
                 case '(':
@@ -291,12 +293,16 @@ namespace JSribar.MathematicalExpressionEvaluator
                     PushOperator(Operator.Addition);
                     return;
                 case '-':
+                case '−': // U+2212
                     PushOperator(Operator.Subtraction);
                     return;
                 case '*':
+                case '×': // U+00D7
+                case '⋅': // U+22C5
                     PushOperator(Operator.Multiplication);
                     return;
                 case '/':
+                case '÷': // U+00F7
                     PushOperator(Operator.Division);
                     return;
                 case '^':
