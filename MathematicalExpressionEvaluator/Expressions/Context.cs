@@ -52,7 +52,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
             }
             catch (KeyNotFoundException e)
             {
-                throw new VariableValueNotDefinedException("Value of a variable not provided.", variableName, e);
+                throw new EvaluationException(Messages.ValueOfVariableNotProvided, variableName, e);
             }
         }
 

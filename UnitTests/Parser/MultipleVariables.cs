@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluator;
-using VariableValueNotDefinedException = JSribar.MathematicalExpressionEvaluator.VariableValueNotDefinedException;
+using EvaluationException = JSribar.MathematicalExpressionEvaluator.Expressions.EvaluationException;
+using Messages = JSribar.MathematicalExpressionEvaluator.Expressions.Messages;
 
 namespace Parser
 {
@@ -16,7 +17,7 @@ namespace Parser
         }
 
         [TestMethod]
-        public void ParseMethodThrowsExpressionEvaluationExceptionIfContextDoesNotContainAllVariableValues()
+        public void ParseMethodThrowsEvaluationExceptionIfContextDoesNotContainAllVariableValues()
         {
             try
             {
@@ -24,9 +25,9 @@ namespace Parser
                 parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluation.Expressions.Context(2));
                 Assert.Fail();
             }
-            catch (VariableValueNotDefinedException e)
+            catch (EvaluationException e)
             {
-                Assert.AreEqual("Value of a variable not provided.", e.Message);
+                Assert.AreEqual(Messages.ValueOfVariableNotProvided, e.Message);
                 Assert.AreEqual("y", e.VariableName);
             }
             try
@@ -35,9 +36,9 @@ namespace Parser
                 parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluation.Expressions.Context((new Dictionary<string, double> { { "x", 2 } })));
                 Assert.Fail();
             }
-            catch (VariableValueNotDefinedException e)
+            catch (EvaluationException e)
             {
-                Assert.AreEqual("Value of a variable not provided.", e.Message);
+                Assert.AreEqual(Messages.ValueOfVariableNotProvided, e.Message);
                 Assert.AreEqual("y", e.VariableName);
             }
             try
@@ -46,9 +47,9 @@ namespace Parser
                 parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluation.Expressions.Context((new Dictionary<string, double> { { "x", 2 }, { "t", 3 } })));
                 Assert.Fail();
             }
-            catch (VariableValueNotDefinedException e)
+            catch (EvaluationException e)
             {
-                Assert.AreEqual("Value of a variable not provided.", e.Message);
+                Assert.AreEqual(Messages.ValueOfVariableNotProvided, e.Message);
                 Assert.AreEqual("y", e.VariableName);
             }
         }
