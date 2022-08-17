@@ -39,6 +39,7 @@ var context = new Context(x);
 var result = expression.Evaluate(context);
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
+**Note**: Expression object returned by <code>Parse</code> method can be reused to evaluate expresion for different value of variable. This can be useful e.g. when you need to draw the expression for a range of values.  
 
 ### Expression with operators of different precedence
 Evaluate expression
