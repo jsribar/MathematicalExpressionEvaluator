@@ -148,8 +148,8 @@ var parser = new Parser();
 parser.AddFuncion2("hypotenuse", Hypotenuse);
 // Add mathematical constant 'two' with value of 2:
 parser.AddConstant("two", 2);
-parser.Parse("hypotenuse(x, 2 * two)");
-var result = parser.Evaluate(new Context(3)); 
+var expression = parser.Parse("hypotenuse(x, 2 * two)");
+var result = expression.Evaluate(new Context(3)); 
 // ...
 ```
 
@@ -176,9 +176,9 @@ To evaluate expression with multiple variables, variable identifiers must be pas
 // Use 'x' and 'y' identifiers:
 var parser = new Parser("x", "y");
 // Expression with 2 variables:
-parser.Parse("sin(x + y)");
+var expression = parser.Parse("sin(x + y)");
 // Provide values: x=2, y=3:
-var result = parser.Evaluate(new Context(("x", 2), ("y", 3)));
+var result = expression.Evaluate(new Context(("x", 2), ("y", 3)));
 // ...
 ```
 
