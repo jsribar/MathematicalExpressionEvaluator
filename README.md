@@ -124,3 +124,27 @@ var context = new Context(4);
 // ...
 ```
 __Note__: Preceding sign must be followed immediately by constant, variable or function name (no whitespaces are allowed), otherwise <code>ParserException</code> is thrown.
+
+### Adding custom function and constant
+Custom function can be added in runtime by <code>AddFunction</code> or <code>AddFunction2</code> methods, for functions with single or two arguments, respectively. Custom constants can be added by <code>AddConstant</code> method.
+
+```csharp
+// User defined function
+static double Hypotenuse(double a, double b)
+{
+    return Math.Sqrt(a * a + b * b);
+}
+// ...
+var parser = new Parser();
+// Add user defined mathematical function 'Hypotenuse'.
+parser.AddFuncion2("hypotenuse", Hypotenuse);
+// Add mathematical constant 'two' with value of 2.
+parser.AddConstant("two", 2);
+parser.Parse("hypotenuse(x, 2 * two)");
+var result = parser.Evaluate(new Context(3)); 
+// ...
+```
+
+__Note 1__: Functions and constants must be added before invoking <code>Parse</code> method with expression that uses them in order to parse the expression correctly.
+
+__Note 2__: If name of function or constant is already used for existing function or constant, parser throws <code>IdentifierException</code>.
