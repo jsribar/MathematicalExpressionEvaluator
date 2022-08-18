@@ -43,7 +43,22 @@ var context = new Context(x);
 var result = expression.Evaluate(context);
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
-**Note**: Expression object returned by <code>Parse</code> method can be reused to evaluate expresion for different value of variable. This can be useful e.g. when you need to draw the expression for a range of values.  
+**Note 1**: Spaces around operators and operands are optional. Mathematical expression in the example above could be also written as:
+```csharp
+//...
+var mathExpression = " x+3 ";
+```
+**Note 2**: Expression object returned by <code>Parse</code> method can be reused to evaluate expression for different values of the variable. For example, to evaluate the expression for a range of _x_:
+```csharp
+var parser = new Parser();
+var mathExpression = "x + 3";
+var expression = parser.Parse(mathExpression);
+Console.WriteLine($"Values of {mathExpression}{Environment.NewLine}x\tvalue");
+for (int x = 0; x <= 10; ++x)
+{
+    Console.WriteLine($"{x}\t{expression.Evaluate(new Context(x))}");
+}
+```
 
 ### Expression with operators of different precedence
 Evaluate expression
