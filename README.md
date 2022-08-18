@@ -29,7 +29,7 @@ _x_ + 3
 
 for a value of _x_=2:
 1. Create <code>Parser</code> object.
-2. Invoke <code>Parse</code> method and pass the string with mathematical expression. <code>Parse</code> method returns <code>IExpression</code> object.
+2. Invoke <code>Parse</code> method and pass the string with mathematical expression. On success, <code>Parse</code> method returns final <code>IExpression</code> object evaluated as a composition of expressions from operations parsed.
 3. Create a <code>Context</code> object and pass the value of variable _x_ for which mathematical expression should be evaluated.
 3. Invoke <code>Evaluate</code> method of <code>IExpression</code> interface and pass the context object. <code>Evaluate</code> method returns the value of mathematical expression for the context (i.e. value of variable _x_) provided.
 ```csharp
