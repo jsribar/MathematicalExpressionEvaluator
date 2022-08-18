@@ -328,7 +328,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                     ++pos;
                     return ParserState.AfterOperator;
                 default:
-                    if (char.IsDigit(text[pos]))
+                    if (text[pos] == '.' || char.IsDigit(text[pos]))
                     {
                         PushNumber(text, ref pos);
                         return ParserState.BeforeOperator;

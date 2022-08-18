@@ -11,6 +11,9 @@ namespace Parser
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
             Assert.AreEqual(2, parser.Parse("2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(2, parser.Parse("2.").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(2, parser.Parse("2.0").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(0.2, parser.Parse(".2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
             Assert.AreEqual(10.3, parser.Parse("10.3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
         }
 
@@ -33,10 +36,14 @@ namespace Parser
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
             Assert.AreEqual(530, parser.Parse("5.3e2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(530, parser.Parse("5.3e+2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
             Assert.AreEqual(530, parser.Parse("5.3E2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
             Assert.AreEqual(0.3, parser.Parse("3e-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(0.3, parser.Parse("3.e-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(0.3, parser.Parse("3.0e-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
             Assert.AreEqual(0.3, parser.Parse("3E-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
             Assert.AreEqual(0, parser.Parse("0.E0").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(3.14159, parser.Parse("314159E-5").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
         }
 
         [TestMethod]
@@ -109,6 +116,44 @@ namespace Parser
             {
                 Assert.AreEqual(4, e.Position);
                 Assert.AreEqual(MathematicalExpressionEvaluator.Messages.InvalidOperator, e.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ParseThrowsExceptionForIncomleteConstantInScientificFormat()
+        {
+            try
+            {
+                var parser = new MathematicalExpressionEvaluator.Parser();
+                parser.Parse("7.23e");
+                Assert.Fail();
+            }
+            catch (MathematicalExpressionEvaluator.ParserException e)
+            {
+                Assert.AreEqual(0, e.Position);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.InvalidNumberFormat, e.Message);
+            }
+            try
+            {
+                var parser = new MathematicalExpressionEvaluator.Parser();
+                parser.Parse("7.23e+");
+                Assert.Fail();
+            }
+            catch (MathematicalExpressionEvaluator.ParserException e)
+            {
+                Assert.AreEqual(0, e.Position);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.InvalidNumberFormat, e.Message);
+            }
+            try
+            {
+                var parser = new MathematicalExpressionEvaluator.Parser();
+                parser.Parse("7.23e-");
+                Assert.Fail();
+            }
+            catch (MathematicalExpressionEvaluator.ParserException e)
+            {
+                Assert.AreEqual(0, e.Position);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.InvalidNumberFormat, e.Message);
             }
         }
 
