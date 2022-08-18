@@ -32,6 +32,7 @@ for a value of _x_=2:
 2. Invoke <code>Parse</code> method and pass the string with mathematical expression. On success, <code>Parse</code> method returns final <code>IExpression</code> object evaluated as a composition of expressions from operations parsed.
 3. Create a <code>Context</code> object and pass the value of variable _x_ for which mathematical expression should be evaluated.
 3. Invoke <code>Evaluate</code> method of <code>IExpression</code> interface and pass the context object. <code>Evaluate</code> method returns the value of mathematical expression for the context (i.e. value of variable _x_) provided.
+
 ```csharp
 using JSribar.MathematicalExpressionEvaluator;
 ...
@@ -43,12 +44,14 @@ var context = new Context(x);
 var result = expression.Evaluate(context);
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
+
 **Note 1**: Spaces around operators and operands are optional. Mathematical expression in the example above could be also written as:
 ```csharp
 //...
 var mathExpression = " x+3 ";
 ```
 **Note 2**: Expression object returned by <code>Parse</code> method can be reused to evaluate expression for different values of the variable. For example, to evaluate the expression for a range of _x_:
+
 ```csharp
 var parser = new Parser();
 var mathExpression = "x + 3";
@@ -66,6 +69,7 @@ Evaluate expression
 12 − 8 × 2<sup>_x_</sup> ÷ 4
 
 for a value of _x_=2 (result should be 4):
+
 ```csharp
 using JSribar.MathematicalExpressionEvaluator;
 // ...
@@ -84,6 +88,7 @@ Evaluate expression
 12 − (8 × 2)<sup>(_x_ ÷ 4)</sup>
 
 for _x_=2 (result should be 8):
+
 ```csharp
 using JSribar.MathematicalExpressionEvaluator;
 // ...
@@ -99,6 +104,7 @@ Evaluate expression
 _x_ + _tan_(_π_/_x_)
 
 for _x_=4 (result should be 5):
+
 ```csharp
 // ...
 var mathExpression = "x + tan(PI / x)";
@@ -116,6 +122,7 @@ Evaluate expression
 −*x* + −*tan*(_π_/_x_)
 
 for _x_=4 (result should be −5):
+
 ```csharp
 // ...
 var mathExpression = "-x +-tan(PI / x)";
@@ -129,16 +136,16 @@ __Note__: Preceding sign must be followed immediately by constant, variable or f
 Custom function can be added in runtime by <code>AddFunction</code> or <code>AddFunction2</code> methods, for functions with single or two arguments, respectively. Custom constants can be added by <code>AddConstant</code> method.
 
 ```csharp
-// User defined function
+// User defined function:
 static double Hypotenuse(double a, double b)
 {
     return Math.Sqrt(a * a + b * b);
 }
 // ...
 var parser = new Parser();
-// Add user defined mathematical function 'Hypotenuse'.
+// Add user defined mathematical function 'Hypotenuse':
 parser.AddFuncion2("hypotenuse", Hypotenuse);
-// Add mathematical constant 'two' with value of 2.
+// Add mathematical constant 'two' with value of 2:
 parser.AddConstant("two", 2);
 parser.Parse("hypotenuse(x, 2 * two)");
 var result = parser.Evaluate(new Context(3)); 
@@ -148,3 +155,28 @@ var result = parser.Evaluate(new Context(3));
 __Note 1__: Functions and constants must be added before invoking <code>Parse</code> method with expression that uses them in order to parse the expression correctly.
 
 __Note 2__: If name of function or constant is already used for existing function or constant, parser throws <code>IdentifierException</code>.
+
+### Using different identifier for a variable
+Parser assumes that variable is named _x_ by default. If you need to use different identifier for a variable, simply provide the identifier to the <code>Parser</code> constructor:
+
+```csharp
+// Use 'time' instead of default 'x' identifier for variable:
+var parser = new Parser("time");
+parser.Parse("sin(time / (2 * PI))");
+// ...
+```
+
+__Note__: If name of identifier is already used for existing function or constant, parser throws <code>IdentifierException</code>.
+
+### Using multiple variables
+To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Context</code> constructor as a <code>Dictionary<string, double></code>, with variable identifiers and corresponding values.
+
+```csharp
+// Use 'x' and 'y' identifiers:
+var parser = new Parser("x", "y");
+// Expression with 2 variables:
+parser.Parse("sin(x + y)");
+// Provide values: x=2, y=3:
+var result = parser.Evaluate(new Context(new Dictionary<string, double> { { "x", 2 }, { "y", 3 } }));
+// ...
+```
