@@ -38,11 +38,14 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         ///   Constructor for multiple variables.
         /// </summary>
         /// <param name="values">
-        ///   Dictionary with variables and their current values.
+        ///   Collection of variables and corresponding current values.
         /// </param>
-        public Context(Dictionary<string, double> values)
+        public Context(params (string, double)[] values)
         {
-            this.values = values;
+            foreach ((string, double) entry in values)
+            {
+                this.values[entry.Item1] = entry.Item2;
+            }
         }
 
         /// <summary>

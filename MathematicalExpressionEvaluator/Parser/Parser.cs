@@ -119,7 +119,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// <param name="variableIdentifiers">
         ///   Collection of variable identifiers.
         /// </param>
-        public Parser(ICollection<string> variableIdentifiers)
+        public Parser(params string[] variableIdentifiers)
         {
             foreach (string name in variableIdentifiers)
             {

@@ -21,7 +21,7 @@ namespace Expressions
             var variableX = new MathematicalExpressionEvaluator.Expressions.Variable("x");
             var variableY = new MathematicalExpressionEvaluator.Expressions.Variable("y");
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(new Dictionary<string, double> { { "x", 5 }, { "y", 12 } });
+            var context = new MathematicalExpressionEvaluator.Expressions.Context(("x", 5), ("y", 12));
             Assert.AreEqual(5, variableX.Interpret(context));
             Assert.AreEqual(12, variableY.Interpret(context));
         }
