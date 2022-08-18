@@ -206,3 +206,12 @@ Following functions are built-in and directly available:
 | <code>sqrt</code>                    | [<code>Math.Sqrt</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sqrt)   |               |
 | <code>tan</code> , <code>tg</code>   | [<code>Math.Tan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tan)     |               |
 | <code>tanh</code>                    | [<code>Math.Tanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tanh)   |               |
+
+## Built-in Mathematical Constants
+Following mathematical constants are built-in and directly available:
+| Identifier                           | Field invoked                                                                       |
+| ------------------------------------ | ----------------------------------------------------------------------------------- |
+| <code>E</code>                       | [<code>Math.E</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.e)    |
+| <code>PI</code>, <code>π</code>      | [<code>Math.E</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pi)   |
+
+
