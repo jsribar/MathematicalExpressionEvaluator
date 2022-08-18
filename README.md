@@ -169,7 +169,7 @@ parser.Parse("sin(time / (2 * PI))");
 __Note__: If name of identifier is already used for existing function or constant, parser throws <code>IdentifierException</code>.
 
 ### Using multiple variables
-To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Context</code> constructor as a <code>Dictionary<string, double></code>, with variable identifiers and corresponding values.
+To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Context</code> constructor as a collection of <code>string</code> - <code>double></code> tuple pairs, with variable identifiers and corresponding values.
 
 ```csharp
 // Use 'x' and 'y' identifiers:
@@ -177,6 +177,6 @@ var parser = new Parser("x", "y");
 // Expression with 2 variables:
 parser.Parse("sin(x + y)");
 // Provide values: x=2, y=3:
-var result = parser.Evaluate(new Context(new Dictionary<string, double> { { "x", 2 }, { "y", 3 } }));
+var result = parser.Evaluate(new Context(("x", 2), ("y", 3)));
 // ...
 ```
