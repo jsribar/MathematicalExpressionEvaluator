@@ -42,7 +42,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
                 return DoInterpret(context);
             return -DoInterpret(context);
         }
-        
+
         /// <summary>
         ///   Toggles expression sign.
         /// </summary>

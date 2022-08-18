@@ -72,7 +72,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         {
             try
             {
-            return values[variableName];
+                return values[variableName];
 
             }
             catch (KeyNotFoundException)
