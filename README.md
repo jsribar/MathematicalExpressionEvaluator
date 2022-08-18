@@ -1,19 +1,23 @@
 # MathematicalExpressionEvaluator
-C# library for parsing and evaluation of mathematical expressions with one or more variables. Basic characteristics: 
-* supports basic arithmentic operations: 
+C# library for parsing and evaluation of mathematical expressions with one or more variables. Written to support .NET 4.5 (and higher) and .NET 6.0. 
+
+Project was initially created as a demonstration of Interpreter design pattern but was later extended with parser, employing [Shunting yard algorithm](https://en.wikipedia.org/wiki/Shunting_yard_algorithm).
+
+## Features
+Basic features of the library:
+* Supports basic arithmentic operations, using both ASCII characters and mathematical signs:
     * addition (<code>+</code>), 
     * subtraction (<code>-</code>, U+2212 <code>−</code>), 
     * multiplication (<code>*</code>, U+00D7 <code>×</code>, U+22C5 <code>⋅</code>), 
     * division (<code>/</code>, U+00F7 <code>÷</code>), 
-    * exponentiation (<code>^</code>), 
-* supports extra sign (<code>-</code>, U+2212 <code>−</code> or <code>+</code>) preceding a value, function or variable,
-* takes care of operator precedence, 
-* supports parentheses to override operator precedence, 
-* includes standard mathematical functions with one or two arguments,
-* includes basic mathematical constants (_e_, _π_),
-* additional custom functions and constants can be defined in the runtime.
-
-Project was initially created as a demonstration of Interpreter design pattern but was later extended with parser.
+    * exponentiation (<code>^</code>). 
+* Allows extra sign (<code>-</code>, U+2212 <code>−</code> or <code>+</code>) preceding a value, function or variable.
+* Takes care of operator precedence. 
+* Supports parentheses to override operator precedence. 
+* Includes support for standard mathematical functions with one (e.g. _sin_, _sqrt_) or two arguments (e.g. _atan2_, _pow_).
+* Includes basic mathematical constants (_e_, _π_).
+* Additional custom functions and constants can be defined in the runtime.
+* Parser reports error for an invalid expression, with exact position where error occured.
 
 ## Basic Usage
 Below are some introductory examples of library usage.
@@ -106,4 +110,4 @@ var mathExpression = "-x +-tan(PI / x)";
 var context = new Context(4); 
 // ...
 ```
-__Note__: Preceding sign must be followed by constant, variable or function name immediately (no whitespaces are allowed), otherwise <code>ParserException</code> is thrown.
+__Note__: Preceding sign must be followed immediately by constant, variable or function name (no whitespaces are allowed), otherwise <code>ParserException</code> is thrown.
