@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluator;
+using MathematicalExpressionEvaluator = JSribar.MathematicalExpressionEvaluator;
 
 namespace Expressions
 {
@@ -9,19 +9,19 @@ namespace Expressions
         [TestMethod]
         public void InterpretMethodReturnsValueOfASingleVariableForContextProvided()
         {
-            var variable = new MathematicalExpressionEvaluation.Expressions.Variable();
+            var variable = new MathematicalExpressionEvaluator.Expressions.Variable();
 
-            var context = new MathematicalExpressionEvaluation.Expressions.Context(3);
+            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
             Assert.AreEqual(3, variable.Interpret(context));
         }
 
         [TestMethod]
         public void InterpretMethodReturnsValuesOfMultipleVariablesForContextProvided()
         {
-            var variableX = new MathematicalExpressionEvaluation.Expressions.Variable("x");
-            var variableY = new MathematicalExpressionEvaluation.Expressions.Variable("y");
+            var variableX = new MathematicalExpressionEvaluator.Expressions.Variable("x");
+            var variableY = new MathematicalExpressionEvaluator.Expressions.Variable("y");
 
-            var context = new MathematicalExpressionEvaluation.Expressions.Context(new Dictionary<string, double> { { "x", 5 }, { "y", 12 } });
+            var context = new MathematicalExpressionEvaluator.Expressions.Context(new Dictionary<string, double> { { "x", 5 }, { "y", 12 } });
             Assert.AreEqual(5, variableX.Interpret(context));
             Assert.AreEqual(12, variableY.Interpret(context));
         }

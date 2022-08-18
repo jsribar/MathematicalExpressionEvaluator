@@ -3,7 +3,7 @@
 namespace JSribar.MathematicalExpressionEvaluator
 {
     /// <summary>
-    ///   Exception thrown for invalid identifier.
+    ///   Exception thrown for invalid or missing identifier.
     /// </summary>
     public class IdentifierException : Exception
     {

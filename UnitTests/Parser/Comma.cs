@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MathematicalExpressionEvaluation = JSribar.MathematicalExpressionEvaluator;
-using ParserException = JSribar.MathematicalExpressionEvaluator.ParserException;
-
+using MathematicalExpressionEvaluator = JSribar.MathematicalExpressionEvaluator;
 
 namespace Parser
 {
@@ -13,14 +11,14 @@ namespace Parser
         {
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse(",");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(0, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedComma, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.UnexpectedComma, e.Message);
             }
         }
 
@@ -29,14 +27,14 @@ namespace Parser
         {
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("1,3");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(1, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedComma, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.UnexpectedComma, e.Message);
             }
         }
 
@@ -45,14 +43,14 @@ namespace Parser
         {
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("1 + ,3");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(4, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedComma, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.UnexpectedComma, e.Message);
             }
         }
 
@@ -61,36 +59,36 @@ namespace Parser
         {
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("sin(,)");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(4, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedComma, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.UnexpectedComma, e.Message);
             }
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("pow(,)");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(4, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedComma, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.UnexpectedComma, e.Message);
             }
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("pow(1,)");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(6, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.UnexpectedRigthParenthesis, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.UnexpectedRigthParenthesis, e.Message);
             }
         }
 
@@ -99,47 +97,47 @@ namespace Parser
         {
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("sin(3,)");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(5, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.FunctionHasToManyArguments, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.FunctionHasToManyArguments, e.Message);
             }
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("sin(3,");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(5, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.FunctionHasToManyArguments, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.FunctionHasToManyArguments, e.Message);
             }
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("pow(1,3,)");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(7, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.FunctionHasToManyArguments, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.FunctionHasToManyArguments, e.Message);
             }
             try
             {
-                var parser = new MathematicalExpressionEvaluation.Parser();
+                var parser = new MathematicalExpressionEvaluator.Parser();
                 parser.Parse("pow(1,3,");
                 Assert.Fail();
             }
-            catch (ParserException e)
+            catch (MathematicalExpressionEvaluator.ParserException e)
             {
                 Assert.AreEqual(7, e.Position);
-                Assert.AreEqual(MathematicalExpressionEvaluation.Parser.FunctionHasToManyArguments, e.Message);
+                Assert.AreEqual(MathematicalExpressionEvaluator.Messages.FunctionHasToManyArguments, e.Message);
             }
         }
     }

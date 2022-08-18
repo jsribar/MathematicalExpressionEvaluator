@@ -22,7 +22,7 @@ SOFTWARE.
 
 namespace JSribar.MathematicalExpressionEvaluator
 {
-	public partial class Parser
+	public static class Messages
 	{
 		/// <summary>
 		///   Parser exception messages.
@@ -44,5 +44,6 @@ namespace JSribar.MathematicalExpressionEvaluator
 		public const string UnexpectedSign = "Unexpected sign";
 		public const string UnexpectedSpace = "Unexpected space";
 		public const string UnknownIdentifier = "Unknown identifier";
-	}
+        public const string ValueOfVariableNotProvided = "Value of a variable not provided.";
+    }
 }

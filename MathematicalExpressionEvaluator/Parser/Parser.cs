@@ -145,11 +145,11 @@ namespace JSribar.MathematicalExpressionEvaluator
         {
             if (IsIdentifierAlreadyUsed(name))
             {
-                throw new IdentifierException(IdentifierAlreadyUsed, name);
+                throw new IdentifierException(Messages.IdentifierAlreadyUsed, name);
             }
             if (!IsValidIdentifier(name))
             {
-                throw new IdentifierException(InvalidIdentifier, name);
+                throw new IdentifierException(Messages.InvalidIdentifier, name);
             }
         }
 
@@ -215,7 +215,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                         SkipWhiteSpaces(text, ref pos);
                         if (pos == text.Length)
                         {
-                            throw new ParserException(ExpressionTerminatedUnexpectedly, pos);
+                            throw new ParserException(Messages.ExpressionTerminatedUnexpectedly, pos);
                         }
                         switch (text[pos])
                         {
@@ -224,7 +224,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                                 ++pos;
                                 break;
                             case ')':
-                                throw new ParserException(UnexpectedRigthParenthesis, pos);
+                                throw new ParserException(Messages.UnexpectedRigthParenthesis, pos);
                             default:
                                 switch (text[pos])
                                 {
@@ -257,7 +257,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                             case ',':
                                 if (operators.Count == 0)
                                 {
-                                    throw new ParserException(UnexpectedComma, pos);
+                                    throw new ParserException(Messages.UnexpectedComma, pos);
                                 }
                                 ProcessComma(pos);
                                 state = ParserState.AfterOperator;
@@ -273,7 +273,7 @@ namespace JSribar.MathematicalExpressionEvaluator
             }
             if (state != ParserState.BeforeOperator)
             {
-                throw new ParserException(ExpressionTerminatedUnexpectedly, text.Length);
+                throw new ParserException(Messages.ExpressionTerminatedUnexpectedly, text.Length);
             }
             return FinalExpression(text);
         }
@@ -311,18 +311,18 @@ namespace JSribar.MathematicalExpressionEvaluator
         {
             if (text.Length == pos)
             {
-                throw new ParserException(ExpressionTerminatedUnexpectedly, pos);
+                throw new ParserException(Messages.ExpressionTerminatedUnexpectedly, pos);
             }
             switch (text[pos])
             {
                 case ' ':
-                    throw new ParserException(UnexpectedSpace, pos);
+                    throw new ParserException(Messages.UnexpectedSpace, pos);
                 case ',':
-                    throw new ParserException(UnexpectedComma, pos);
+                    throw new ParserException(Messages.UnexpectedComma, pos);
                 case '-':
                 case '−': // U+2212
                 case '+':
-                    throw new ParserException(UnexpectedSign, pos);
+                    throw new ParserException(Messages.UnexpectedSign, pos);
                 case '(':
                     operators.Push(Operator.LeftParenthesis);
                     ++pos;
@@ -344,7 +344,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                     // Function name must be followed by left parenthesis.
                     if (text[pos] != '(')
                     {
-                        throw new ParserException(FunctionNotFollowedByLeftParenthesis, pos);
+                        throw new ParserException(Messages.FunctionNotFollowedByLeftParenthesis, pos);
                     }
                     operators.Push(Operator.LeftFunctionParenthesis);
                     ++pos;
@@ -358,9 +358,9 @@ namespace JSribar.MathematicalExpressionEvaluator
                 {
                     return ParserState.BeforeOperator;
                 }
-                throw new ParserException(UnknownIdentifier, pos);
+                throw new ParserException(Messages.UnknownIdentifier, pos);
             }
-            throw new ParserException(InvalidCharacter, pos);
+            throw new ParserException(Messages.InvalidCharacter, pos);
         }
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                     PushOperator(Operator.Power);
                     return;
                 default:
-                    throw new ParserException(InvalidOperator, pos);
+                    throw new ParserException(Messages.InvalidOperator, pos);
             }
         }
 
@@ -430,7 +430,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                 if (IsLeftParenthesis(operators.Peek()))
                 {
                     // TODO: Provide exact position
-                    throw new ParserException(MissingRightParenthesis, text.Length);
+                    throw new ParserException(Messages.MissingRightParenthesis, text.Length);
                 }
                 EvaluateExpressionFromTop();
             }
@@ -485,7 +485,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                     ++decimalSeparators;
                     if (decimalSeparators > 1)
                     {
-                        throw new ParserException(DuplicateDecimalSeparator, pos);
+                        throw new ParserException(Messages.DuplicateDecimalSeparator, pos);
                     }
                 }
                 ++pos;
@@ -510,7 +510,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                 output.Push(new Constant(value));
                 return;
             }
-            throw new ParserException(InvalidNumberFormat, start);
+            throw new ParserException(Messages.InvalidNumberFormat, start);
         }
 
         /// <summary>
@@ -621,7 +621,7 @@ namespace JSribar.MathematicalExpressionEvaluator
             var parenthesis = operators.Pop();
             if (parenthesis == Operator.LeftFunctionParenthesis && functions.Peek().IncrementArgumentsConsumed() < NumberOfOperands(functions.Peek().Function))
             {
-                throw new ParserException(FunctionHasToFewArguments, pos);
+                throw new ParserException(Messages.FunctionHasToFewArguments, pos);
             }
         }
 
@@ -640,7 +640,7 @@ namespace JSribar.MathematicalExpressionEvaluator
             }
             if (functions.Peek().IncrementArgumentsConsumed() >= NumberOfOperands(functions.Peek().Function))
             {
-                throw new ParserException(FunctionHasToManyArguments, pos);
+                throw new ParserException(Messages.FunctionHasToManyArguments, pos);
             }
             operators.Push(Operator.Comma);
         }
@@ -783,7 +783,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         {
             if (operators.Count == 0)
             {
-                throw new ParserException(MissingLeftParenthesis, pos);
+                throw new ParserException(Messages.MissingLeftParenthesis, pos);
             }
             return !IsLeftParenthesis(operators.Peek());
         }
