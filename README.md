@@ -212,6 +212,23 @@ Following mathematical constants are built-in and directly available:
 | Identifier                           | Field invoked                                                                       |
 | ------------------------------------ | ----------------------------------------------------------------------------------- |
 | <code>E</code>                       | [<code>Math.E</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.e)    |
-| <code>PI</code>, <code>π</code>      | [<code>Math.E</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pi)   |
+| <code>PI</code>, <code>π</code>      | [<code>Math.PI</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pi)  |
 
+## Error Reporting
+Errors are reported through <code>ParserException</code> and <code>IdentifierException</code>.
+
+### <code>ParserException</code>
+This exception may be thrown by <code>Parse</code> method when error is encountered on expression string being parsed. <code>ParserException</code> contains two properties/fields:
+* <code>Message</code> - string with error message,
+* <code>Position</code> - integer with the position in input expression string where error occured.
+
+### <code>IdentifierException</code>
+This exception may be thrown:
+1. When custom identifier passed to the <code>Parser</code> has invalid format (it must not be empty, must start with letter followed by a sequence of letters and digits only).
+2. When user defined function or constant identifier passed to <code>AddConstant</code>, <code>AddFunction</code> or <code>AddFunction2</code> method has invalid format or is already used for some function or constant.
+3. When not all identifier values are supplied to the <code>Context</code> constructor.
+
+Exception contains two properties/fields:
+* <code>Message</code> - string with error message,
+* <code>Identifier</code> - string with identifier that caused the error.
 
