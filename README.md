@@ -102,6 +102,7 @@ __Note 2__: Mathematical constant _π_ can be written also as a Greek character 
 Evaluate expression
 
 −*x* + −*tan*(_π_/_x_)
+
 for _x_=4 (result should be −5):
 ```csharp
 // ...
