@@ -73,11 +73,8 @@ for _x_=2 (result should be 8):
 using JSribar.MathematicalExpressionEvaluator;
 // ...
 var parser = new Parser();
-var mathExpression = "12 - (8 * 2) ^ (x / 4)";
-var expression = parser.Parse(mathExpression);
-var x = 2;
-var context = new Context(x); 
-var result = expression.Evaluate(context);
+var expression = parser.Parse("12 - (8 * 2) ^ (x / 4)");
+var result = expression.Evaluate(new Context(2));
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
 
