@@ -16,9 +16,9 @@ Basic features of the library:
 * Supports parentheses to override operator precedence. 
 * Includes support for standard mathematical functions with one (e.g. _sin_, _sqrt_) or two arguments (e.g. _atan2_, _pow_).
 * Includes basic mathematical constants (_e_, _π_).
-* Numeric values can be entered as floating point numbers (e.g. 3.14159) or in scientific format (e.g. 314159e-5). __Note__: only decimal point is allowed as a decimal separator since comma is used as function argument separator.
+* Numeric values in expression can be in floating point (e.g. 3.14159) or in scientific format (e.g. 314159e-5). __Note__: only decimal point is allowed as a decimal separator since comma is used as function argument separator.
 * Additional custom functions and constants can be defined in the runtime.
-* Parser reports error for an invalid expression, with exact position where error occured.
+* Parser reports error for invalid expression, with exact position where error occured.
 
 ## Basic Usage
 Below are some introductory examples of library usage.
@@ -31,8 +31,8 @@ _x_ + 3
 for a value of _x_=2:
 1. Create <code>Parser</code> object.
 2. Invoke <code>Parse</code> method and pass the string with mathematical expression. On success, <code>Parse</code> method returns final <code>IExpression</code> object evaluated as a composition of expressions from operations parsed.
-3. Create a <code>Context</code> object and pass the value of variable _x_ for which mathematical expression should be evaluated.
-3. Invoke <code>Evaluate</code> method of <code>IExpression</code> interface and pass the context object. <code>Evaluate</code> method returns the value of mathematical expression for the context (i.e. value of variable _x_) provided.
+3. Create a <code>Context</code> object and pass the value of variable _x_ for which mathematical expression should be evaluated to the <code>Context</code> constructor.
+3. Invoke <code>Evaluate</code> method of the object returned by <code>Parse</code> method in step 2. Pass the context object created in step 3 as argument to <code>Evaluate</code> method. Method returns the value of mathematical expression for the context (i.e. value of variable _x_) provided.
 
 ```csharp
 using JSribar.MathematicalExpressionEvaluator;
@@ -170,7 +170,7 @@ parser.Parse("sin(time / (2 * PI))");
 __Note__: If name of identifier is already used for existing function or constant, parser throws <code>IdentifierException</code>.
 
 ### Using multiple variables
-To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Context</code> constructor as a collection of <code>string</code> - <code>double></code> tuple pairs, with variable identifiers and corresponding values.
+To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Context</code> constructor as a collection of <code>string</code> - <code>double></code> tuples, with variable identifiers and corresponding values.
 
 ```csharp
 // Use 'x' and 'y' identifiers:
@@ -218,12 +218,12 @@ Following mathematical constants are built-in and directly available:
 Errors are reported through <code>ParserException</code> and <code>IdentifierException</code>.
 
 ### <code>ParserException</code>
-This exception may be thrown by <code>Parse</code> method when error is encountered on expression string being parsed. <code>ParserException</code> contains two properties/fields:
+This exception will be thrown by <code>Parse</code> method when error is encountered in expression string being parsed. <code>ParserException</code> contains two properties/fields:
 * <code>Message</code> - string with error message,
 * <code>Position</code> - integer with the position in input expression string where error occured.
 
 ### <code>IdentifierException</code>
-This exception may be thrown:
+This exception will be thrown:
 1. When custom identifier passed to the <code>Parser</code> has invalid format (it must not be empty, must start with letter followed by a sequence of letters and digits only).
 2. When user defined function or constant identifier passed to <code>AddConstant</code>, <code>AddFunction</code> or <code>AddFunction2</code> method has invalid format or is already used for some function or constant.
 3. When not all identifier values are supplied to the <code>Context</code> constructor.
