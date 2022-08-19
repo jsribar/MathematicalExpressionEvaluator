@@ -39,15 +39,36 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         double IExpression.Evaluate(Context context)
         {
             if (isPositive)
-                return DoEvaluate(context);
-            return -DoEvaluate(context);
+                return Evaluate(context);
+            return -Evaluate(context);
         }
 
+        /// <summary>
+        ///   Evaluates value of the expression for the single variable value 
+        ///   provided.
+        /// </summary>
+        /// <param name="value">
+        ///   Value of the variable.
+        /// </param>
+        /// <returns>
+        ///   Evaluated value.
+        /// </returns>
         public double Evaluate(double value)
         {
             return ((IExpression)this).Evaluate(new Context(value));
         }
 
+        /// <summary>
+        ///   Evaluates value of the expression for multiple variable values 
+        ///   provided.
+        /// </summary>
+        /// <param name="values">
+        ///   Array of <c>string</c> - <c>double</c> tuples representing 
+        ///   variable identifiers and corresponding values.
+        /// </param>
+        /// <returns>
+        ///   Evaluated value.
+        /// </returns>
         public double Evaluate(params (string, double)[] values)
         {
             return ((IExpression)this).Evaluate(new Context(values));
@@ -70,7 +91,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Evaluated value.
         /// </returns>
-        protected abstract double DoEvaluate(Context context);
+        protected abstract double Evaluate(Context context);
 
         /// <summary>
         ///   Current sign of the expression.

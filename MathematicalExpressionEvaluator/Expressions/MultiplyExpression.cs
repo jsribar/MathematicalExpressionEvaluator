@@ -53,7 +53,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Evaluated product.
         /// </returns>
-        protected override double DoEvaluate(Context context)
+        protected override double Evaluate(Context context)
         {
             return lhs.Evaluate(context) * rhs.Evaluate(context);
         }
