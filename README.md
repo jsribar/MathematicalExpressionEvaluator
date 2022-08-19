@@ -14,8 +14,8 @@ Basic features of the library:
 * Allows extra sign (<code>-</code>, U+2212 <code>−</code> or <code>+</code>) preceding a value, function or variable.
 * Takes care of operator precedence. 
 * Supports parentheses to override operator precedence. 
-* Includes support for standard mathematical functions with one (e.g. _sin_, _sqrt_) or two arguments (e.g. _atan2_, _pow_).
-* Includes basic mathematical constants (_e_, _π_).
+* Supports standard mathematical functions with one (e.g. _sin_, _sqrt_) or two arguments (e.g. _atan2_, _pow_) that can be invoked using corresponding identifiers.
+* Supports identifiers for basic mathematical constants (_e_, _π_).
 * Numeric values in expression can be in floating point (e.g. 3.14159) or in scientific format (e.g. 314159e-5). __Note__: only decimal point is allowed as a decimal separator since comma is used as function argument separator.
 * Additional custom functions and constants can be defined in the runtime.
 * Parser reports error for invalid expression, with exact position where error occured.
