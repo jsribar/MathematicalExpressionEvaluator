@@ -31,8 +31,7 @@ _x_ + 3
 for a value of _x_=2:
 1. Create <code>Parser</code> object.
 2. Invoke <code>Parse</code> method and pass the string with mathematical expression. On success, <code>Parse</code> method returns final <code>IExpression</code> object evaluated as a composition of expressions from operations parsed.
-3. Create a <code>Context</code> object and pass the value of variable _x_ for which mathematical expression should be evaluated to the <code>Context</code> constructor.
-3. Invoke <code>Evaluate</code> method of the object returned by <code>Parse</code> method in step 2. Pass the context object created in step 3 as argument to <code>Evaluate</code> method. Method returns the value of mathematical expression for the context (i.e. value of variable _x_) provided.
+3. Invoke <code>Evaluate</code> method of the object returned by <code>Parse</code> method in step 2. Value of the variable must be passed as argument to the  method and method returns the value of mathematical expression for the value of variable _x_ provided.
 
 ```csharp
 using JSribar.MathematicalExpressionEvaluator;
@@ -41,8 +40,7 @@ var parser = new Parser();
 var mathExpression = "x + 3";
 var expression = parser.Parse(mathExpression);
 var x = 2;
-var context = new Context(x); 
-var result = expression.Evaluate(context);
+var result = expression.Evaluate(x);
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
 
@@ -60,7 +58,7 @@ var expression = parser.Parse(mathExpression);
 Console.WriteLine($"Values of {mathExpression}{Environment.NewLine}x\tvalue");
 for (int x = 0; x <= 10; ++x)
 {
-    Console.WriteLine($"{x}\t{expression.Evaluate(new Context(x))}");
+    Console.WriteLine($"{x}\t{expression.Evaluate(x)}");
 }
 ```
 
@@ -78,8 +76,7 @@ var parser = new Parser();
 var mathExpression = "12 - 8 * 2 ^ x / 4";
 var expression = parser.Parse(mathExpression);
 var x = 2;
-var context = new Context(x); 
-var result = expression.Evaluate(context);
+var result = expression.Evaluate(x);
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
 
@@ -94,8 +91,10 @@ for _x_=2 (result should be 8):
 using JSribar.MathematicalExpressionEvaluator;
 // ...
 var parser = new Parser();
-var expression = parser.Parse("12 - (8 * 2) ^ (x / 4)");
-var result = expression.Evaluate(new Context(2));
+var mathExpression = "12 - (8 * 2) ^ (x / 4)";
+var expression = parser.Parse(mathExpression);
+var x = 2;
+var result = expression.Evaluate(x);
 Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 ```
 
@@ -109,8 +108,7 @@ for _x_=4 (result should be 5):
 ```csharp
 // ...
 var mathExpression = "x + tan(PI / x)";
-// ...
-var context = new Context(4); 
+var result = mathExpression.Evaluate(4);
 // ...
 ```
 __Note 1__: Left parenthesis must follow function name immediately, otherwise <code>ParserException</code> is thrown.
@@ -127,8 +125,7 @@ for _x_=4 (result should be −5):
 ```csharp
 // ...
 var mathExpression = "-x +-tan(PI / x)";
-// ...
-var context = new Context(4); 
+var result = mathExpression.Evaluate(4); 
 // ...
 ```
 __Note__: Preceding sign must be followed immediately by constant, variable or function name (no whitespaces are allowed), otherwise <code>ParserException</code> is thrown.
@@ -149,7 +146,7 @@ parser.AddFuncion2("hypotenuse", Hypotenuse);
 // Add mathematical constant 'two' with value of 2:
 parser.AddConstant("two", 2);
 var expression = parser.Parse("hypotenuse(x, 2 * two)");
-var result = expression.Evaluate(new Context(3)); 
+var result = expression.Evaluate(3); 
 // ...
 ```
 
@@ -163,7 +160,7 @@ Parser assumes that variable is named _x_ by default. If you need to use differe
 ```csharp
 // Use 'time' instead of default 'x' identifier for variable:
 var parser = new Parser("time");
-parser.Parse("sin(time / (2 * PI))");
+var expression = parser.Parse("sin(time / (2 * PI))");
 // ...
 ```
 
@@ -178,7 +175,7 @@ var parser = new Parser("x", "y");
 // Expression with 2 variables:
 var expression = parser.Parse("sin(x + y)");
 // Provide values: x=2, y=3:
-var result = expression.Evaluate(new Context(("x", 2), ("y", 3)));
+var result = expression.Evaluate(("x", 2), ("y", 3));
 // ...
 ```
 
