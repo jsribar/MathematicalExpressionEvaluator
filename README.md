@@ -9,7 +9,7 @@ Basic features of the library:
     * addition (<code>+</code>), 
     * subtraction (<code>-</code>, U+2212 <code>−</code>), 
     * multiplication (<code>*</code>, U+00D7 <code>×</code>, U+22C5 <code>⋅</code>), 
-    * division (<code>/</code>, U+00F7 <code>÷</code>), 
+    * division (<code>/</code>, <code>:</code>, U+00F7 <code>÷</code>), 
     * exponentiation (<code>^</code>). 
 * Allows extra sign (<code>-</code>, U+2212 <code>−</code> or <code>+</code>) preceding a value, function or variable.
 * Takes care of operator precedence. 
