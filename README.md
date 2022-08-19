@@ -1,5 +1,5 @@
 # Mathematical Expression Evaluator
-C# library for parsing and evaluation of mathematical expressions with one or more variables. Written to support .NET 4.5 (and higher) and .NET 6.0. 
+C# library for parsing and evaluation of mathematical expressions with one or more variables. Written to support .NET 4.5 (and higher), .NET 5.0 and .NET 6.0. 
 
 Project was initially created as a demonstration of [Interpreter design pattern](https://en.wikipedia.org/wiki/Interpreter_pattern) but was later extended with parser, employing [Shunting yard algorithm](https://en.wikipedia.org/wiki/Shunting_yard_algorithm).
 
