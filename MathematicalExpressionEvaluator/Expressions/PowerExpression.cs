@@ -54,9 +54,9 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Evaluated power.
         /// </returns>
-        protected override double DoInterpret(Context context)
+        protected override double DoEvaluate(Context context)
         {
-            return Math.Pow(@base.Interpret(context), exponent.Interpret(context));
+            return Math.Pow(@base.Evaluate(context), exponent.Evaluate(context));
         }
 
         /// <summary>

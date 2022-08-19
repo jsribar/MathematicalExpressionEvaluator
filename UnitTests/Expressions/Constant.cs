@@ -11,8 +11,7 @@ namespace Expressions
         {
             var constant = new MathematicalExpressionEvaluator.Expressions.Constant(12);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
-            Assert.AreEqual(12, constant.Interpret(context));
+            Assert.AreEqual(12, constant.Evaluate(3));
         }
     }
 }

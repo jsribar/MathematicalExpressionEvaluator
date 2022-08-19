@@ -53,9 +53,9 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Evaluated difference.
         /// </returns>
-        protected override double DoInterpret(Context context)
+        protected override double DoEvaluate(Context context)
         {
-            return lhs.Interpret(context) - rhs.Interpret(context);
+            return lhs.Evaluate(context) - rhs.Evaluate(context);
         }
 
         /// <summary>

@@ -12,8 +12,7 @@ namespace Expressions
             var piHalf = new MathematicalExpressionEvaluator.Expressions.Constant(Math.PI / 2.0);
             var mathFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Sin, piHalf);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
-            Assert.AreEqual(1.0, mathFun.Interpret(context), 1e-10);
+            Assert.AreEqual(1.0, mathFun.Evaluate(3), 1e-10);
         }
 
         [TestMethod]
@@ -22,8 +21,7 @@ namespace Expressions
             var x = new MathematicalExpressionEvaluator.Expressions.Variable();
             var mathFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Sin, x);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(Math.PI);
-            Assert.AreEqual(0, mathFun.Interpret(context), 1e-10);
+            Assert.AreEqual(0, mathFun.Evaluate(Math.PI), 1e-10);
         }
 
         [TestMethod]
@@ -32,8 +30,7 @@ namespace Expressions
             var argument = new MathematicalExpressionEvaluator.Expressions.Variable();
             var mathFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Sqrt, argument);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(2);
-            Assert.AreEqual(Math.Sqrt(2.0), mathFun.Interpret(context), 1e-10);
+            Assert.AreEqual(Math.Sqrt(2.0), mathFun.Evaluate(2), 1e-10);
         }
 
         [TestMethod]
@@ -45,8 +42,7 @@ namespace Expressions
             var sqrtFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Sqrt, xPlus2);
             var sinFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Sin, sqrtFun);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(2);
-            Assert.AreEqual(Math.Sin(Math.Sqrt(2 + 2)), sinFun.Interpret(context), 1e-10);
+            Assert.AreEqual(Math.Sin(Math.Sqrt(2 + 2)), sinFun.Evaluate(2), 1e-10);
         }
 
         [TestMethod]
@@ -55,8 +51,7 @@ namespace Expressions
             var pi = new MathematicalExpressionEvaluator.Expressions.Constant(Math.PI);
             var mathFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Cos, pi);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(Math.PI);
-            Assert.AreEqual(-1.0, mathFun.Interpret(context), 1e-10);
+            Assert.AreEqual(-1.0, mathFun.Evaluate(Math.PI), 1e-10);
         }
 
         [TestMethod]
@@ -65,8 +60,7 @@ namespace Expressions
             var piHalf = new MathematicalExpressionEvaluator.Expressions.Constant(Math.PI / 2);
             var mathFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Cos, piHalf);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(Math.PI);
-            Assert.AreEqual(0, mathFun.Interpret(context), 1e-10);
+            Assert.AreEqual(0, mathFun.Evaluate(Math.PI), 1e-10);
         }
 
         [TestMethod]
@@ -75,8 +69,7 @@ namespace Expressions
             var zero = new MathematicalExpressionEvaluator.Expressions.Constant(0);
             var mathFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Cos, zero);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(0);
-            Assert.AreEqual(1, mathFun.Interpret(context), 1e-10);
+            Assert.AreEqual(1, mathFun.Evaluate(0), 1e-10);
         }
 
         [TestMethod]
@@ -88,8 +81,7 @@ namespace Expressions
             var sqrtFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Sqrt, xPlus2);
             var cosFun = new MathematicalExpressionEvaluator.Expressions.MathFunction(Math.Cos, sqrtFun);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(2);
-            Assert.AreEqual(Math.Cos(Math.Sqrt(2 + 2)), cosFun.Interpret(context), 1e-10);
+            Assert.AreEqual(Math.Cos(Math.Sqrt(2 + 2)), cosFun.Evaluate(2), 1e-10);
         }
     }
 }

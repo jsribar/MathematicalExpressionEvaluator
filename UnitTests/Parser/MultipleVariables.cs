@@ -10,8 +10,8 @@ namespace Parser
         public void ParseMethodReturnsExpressionForMultipleVariables()
         {
             var parser = new MathematicalExpressionEvaluator.Parser("x", "y");
-            Assert.AreEqual(5, parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(("x", 2), ("y", 3))));
-            Assert.AreEqual(6, parser.Parse("x * y").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(("x", 2), ("y", 3))));
+            Assert.AreEqual(5, parser.Parse("x + y").Evaluate(("x", 2), ("y", 3)), 1e-10);
+            Assert.AreEqual(6, parser.Parse("x * y").Evaluate(("x", 2), ("y", 3)), 1e-10);
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace Parser
             try
             {
                 var parser = new MathematicalExpressionEvaluator.Parser("x", "y");
-                parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(2));
+                parser.Parse("x + y").Evaluate(2);
                 Assert.Fail();
             }
             catch (MathematicalExpressionEvaluator.IdentifierException e)
@@ -31,7 +31,7 @@ namespace Parser
             try
             {
                 var parser = new MathematicalExpressionEvaluator.Parser("x", "y");
-                parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(("x", 2)));
+                parser.Parse("x + y").Evaluate(("x", 2));
                 Assert.Fail();
             }
             catch (MathematicalExpressionEvaluator.IdentifierException e)
@@ -42,7 +42,7 @@ namespace Parser
             try
             {
                 var parser = new MathematicalExpressionEvaluator.Parser("x", "y");
-                parser.Parse("x + y").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(("x", 2), ("t", 3)));
+                parser.Parse("x + y").Evaluate(("x", 2), ("t", 3));
                 Assert.Fail();
             }
             catch (MathematicalExpressionEvaluator.IdentifierException e)

@@ -58,7 +58,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         ///   Output stack where results are pushed. On successful parsing this 
         ///   stack should contain the final expression only.
         /// </summary>
-        private readonly Stack<IExpression> output = new Stack<IExpression>();
+        private readonly Stack<Expression> output = new Stack<Expression>();
 
         /// <summary>
         ///   Class containing information on a function and number of 
@@ -200,7 +200,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// <returns>
         ///   Final <c>Expression</c> object.
         /// </returns>
-        public IExpression Parse(string text)
+        public Expression Parse(string text)
         {
             operators.Clear();
             output.Clear();
@@ -423,7 +423,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// <returns>
         ///   Final <c>Expression</c> object.
         /// </returns>
-        private IExpression FinalExpression(string text)
+        private Expression FinalExpression(string text)
         {
             while (operators.Count > 0)
             {
@@ -716,7 +716,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         {
             Debug.Assert(operators.Count > 0 && output.Count > 0);
             // Local stacks for evaluation from left to right.
-            Stack<IExpression> topExpressions = new Stack<IExpression>();
+            Stack<Expression> topExpressions = new Stack<Expression>();
             Stack<Operator> topOperators = new Stack<Operator>();
 
             int precedence = GetPrecedence(operators.Peek());
@@ -804,7 +804,7 @@ namespace JSribar.MathematicalExpressionEvaluator
         /// <returns>
         ///   Resulting <c>Expression</c> object.
         /// </returns>
-        private static IExpression EvaluateBinaryOperation(Operator @operator, IExpression lhs, IExpression rhs)
+        private static Expression EvaluateBinaryOperation(Operator @operator, IExpression lhs, IExpression rhs)
         {
             switch (@operator)
             {

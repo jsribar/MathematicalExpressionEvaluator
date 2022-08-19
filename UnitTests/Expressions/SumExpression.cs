@@ -13,8 +13,7 @@ namespace Expressions
             var rhs = new MathematicalExpressionEvaluator.Expressions.Constant(2);
             var sum = new MathematicalExpressionEvaluator.Expressions.SumExpression(lhs, rhs);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
-            Assert.AreEqual(25, sum.Interpret(context));
+            Assert.AreEqual(25, sum.Evaluate(3));
         }
 
         [TestMethod]
@@ -24,11 +23,9 @@ namespace Expressions
             var rhs = new MathematicalExpressionEvaluator.Expressions.Constant(2);
             var sum = new MathematicalExpressionEvaluator.Expressions.SumExpression(lhs, rhs);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
-            Assert.AreEqual(5, sum.Interpret(context));
+            Assert.AreEqual(5, sum.Evaluate(3));
             
-            context = new MathematicalExpressionEvaluator.Expressions.Context(5);
-            Assert.AreEqual(7, sum.Interpret(context));
+            Assert.AreEqual(7, sum.Evaluate(5));
         }
 
         [TestMethod]
@@ -38,8 +35,7 @@ namespace Expressions
             var rhs = new MathematicalExpressionEvaluator.Expressions.Variable();
             var sum = new MathematicalExpressionEvaluator.Expressions.SumExpression(lhs, rhs);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(4);
-            Assert.AreEqual(8, sum.Interpret(context), 1e-10);
+            Assert.AreEqual(8, sum.Evaluate(4), 1e-10);
         }
 
         [TestMethod]
@@ -52,9 +48,8 @@ namespace Expressions
             var sum1 = new MathematicalExpressionEvaluator.Expressions.SumExpression(first, second);
             var sum2 = new MathematicalExpressionEvaluator.Expressions.SumExpression(sum1, third);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(4);
-            Assert.AreEqual(6, sum1.Interpret(context), 1e-10);
-            Assert.AreEqual(11, sum2.Interpret(context), 1e-10);
+            Assert.AreEqual(6, sum1.Evaluate(4), 1e-10);
+            Assert.AreEqual(11, sum2.Evaluate(4), 1e-10);
         }
     }
 }

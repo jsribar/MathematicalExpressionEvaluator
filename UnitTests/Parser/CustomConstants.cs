@@ -13,7 +13,7 @@ namespace Parser
             parser.AddConstant("two", 2);
             parser.AddConstant("five", 5);
 
-            Assert.AreEqual(Math.Sqrt(17), parser.Parse("sqrt(two + five * x)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(3)), 1e-10);
+            Assert.AreEqual(Math.Sqrt(17), parser.Parse("sqrt(two + five * x)").Evaluate(3), 1e-10);
         }
 
         [TestMethod]

@@ -10,43 +10,43 @@ namespace Parser
         public void ParserReturnsExpressionForPowFunctionWithTwoConstantArguments()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(8, parser.Parse("pow(2, 3)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(8, parser.Parse("pow(2, 3)").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParserReturnsExpressionForPowFunctionWithTwoVariableArguments()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(27, parser.Parse("pow(x, x)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(3)), 1e-10);
+            Assert.AreEqual(27, parser.Parse("pow(x, x)").Evaluate(3), 1e-10);
         }
 
         [TestMethod]
         public void ParserReturnsExpressionForPowFunctionWithTwoExpressionArguments()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(16, parser.Parse("pow(x + 1, x - 1)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(3)), 1e-10);
+            Assert.AreEqual(16, parser.Parse("pow(x + 1, x - 1)").Evaluate(3), 1e-10);
         }
 
         [TestMethod]
         public void ParserReturnsExpressionForPowFunctionWithTwoExpressionArgumentsWithParentheses()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(65536, parser.Parse("pow(2 * (x - 1), (x - 1) * (x + 1))").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(3)), 1e-10);
+            Assert.AreEqual(65536, parser.Parse("pow(2 * (x - 1), (x - 1) * (x + 1))").Evaluate(3), 1e-10);
         }
 
         [TestMethod]
         public void ParserReturnsExpressionForCompositionOfPowFunctions()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(16, parser.Parse("pow(pow(x, 1), pow(x, x))").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(2)), 1e-10);
-            Assert.AreEqual(64, parser.Parse("pow(pow(x, 4 - x), pow(x + 1, x - 1))").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(2)), 1e-10);
+            Assert.AreEqual(16, parser.Parse("pow(pow(x, 1), pow(x, x))").Evaluate(2), 1e-10);
+            Assert.AreEqual(64, parser.Parse("pow(pow(x, 4 - x), pow(x + 1, x - 1))").Evaluate(2), 1e-10);
         }
 
         [TestMethod]
         public void ParserReturnsExpressionForAtan2FunctionWithTwoConstantArguments()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(Math.Atan2(1, -1), parser.Parse("atan2(1, -1)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(Math.Atan2(1, -1), parser.Parse("atan2(1, -1)").Evaluate(5), 1e-10);
         }
 
         [TestMethod]

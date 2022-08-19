@@ -13,12 +13,11 @@ namespace Expressions
             var exponent = new MathematicalExpressionEvaluator.Expressions.Constant(3);
             var power = new MathematicalExpressionEvaluator.Expressions.PowerExpression(@base, exponent);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(5);
-            Assert.AreEqual(8, power.Interpret(context), 1e-10);
+            Assert.AreEqual(8, power.Evaluate(5), 1e-10);
 
             @base = new MathematicalExpressionEvaluator.Expressions.Constant(-2);
             power = new MathematicalExpressionEvaluator.Expressions.PowerExpression(@base, exponent);
-            Assert.AreEqual(-8, power.Interpret(context), 1e-10);
+            Assert.AreEqual(-8, power.Evaluate(5), 1e-10);
         }
 
         [TestMethod]
@@ -28,8 +27,7 @@ namespace Expressions
             var exponent = new MathematicalExpressionEvaluator.Expressions.Variable();
             var power = new MathematicalExpressionEvaluator.Expressions.PowerExpression(@base, exponent);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
-            Assert.AreEqual(27, power.Interpret(context), 1e-10);
+            Assert.AreEqual(27, power.Evaluate(3), 1e-10);
         }
 
         [TestMethod]
@@ -39,8 +37,7 @@ namespace Expressions
             var exponent = new MathematicalExpressionEvaluator.Expressions.Variable();
             var power = new MathematicalExpressionEvaluator.Expressions.PowerExpression(@base, exponent);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(-3);
-            Assert.AreEqual(0.125, power.Interpret(context), 1e-10);
+            Assert.AreEqual(0.125, power.Evaluate(-3), 1e-10);
         }
 
         [TestMethod]
@@ -49,8 +46,7 @@ namespace Expressions
             var var = new MathematicalExpressionEvaluator.Expressions.Variable();
             var power = new MathematicalExpressionEvaluator.Expressions.PowerExpression(var, var);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(-2);
-            Assert.AreEqual(0.25, power.Interpret(context), 1e-10);
+            Assert.AreEqual(0.25, power.Evaluate(-2), 1e-10);
         }
     }
 }

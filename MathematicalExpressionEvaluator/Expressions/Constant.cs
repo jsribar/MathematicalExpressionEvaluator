@@ -47,7 +47,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Value of the current <c>Constant</c> object.
         /// </returns>
-        protected override double DoInterpret(Context context)
+        protected override double DoEvaluate(Context context)
         {
             return value;
         }

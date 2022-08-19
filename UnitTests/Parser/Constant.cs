@@ -10,49 +10,49 @@ namespace Parser
         public void ParseMethodReturnsExpressionForAnExpressionConsistingOfThatValueOnly()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(2, parser.Parse("2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(2, parser.Parse("2.").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(2, parser.Parse("2.0").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(0.2, parser.Parse(".2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(10.3, parser.Parse("10.3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(2, parser.Parse("2").Evaluate(5), 1e-10);
+            Assert.AreEqual(2, parser.Parse("2.").Evaluate(5), 1e-10);
+            Assert.AreEqual(2, parser.Parse("2.0").Evaluate(5), 1e-10);
+            Assert.AreEqual(0.2, parser.Parse(".2").Evaluate(5), 1e-10);
+            Assert.AreEqual(10.3, parser.Parse("10.3").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodReturnsExpressionForAnExpressionConsistingOfThatValueOnlyPrecededBySpace()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(5, parser.Parse(" 5").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(5, parser.Parse(" 5").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodReturnsExpressionForAnExpressionConsistingOfThatValueOnlyFollowedBySpace()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(7, parser.Parse("7 ").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(7, parser.Parse("7 ").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodReturnsExpressionForANumberInScientificFormat()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(530, parser.Parse("5.3e2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(530, parser.Parse("5.3e+2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(530, parser.Parse("5.3E2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(0.3, parser.Parse("3e-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(0.3, parser.Parse("3.e-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(0.3, parser.Parse("3.0e-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(0.3, parser.Parse("3E-1").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(0, parser.Parse("0.E0").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(3.14159, parser.Parse("314159E-5").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(530, parser.Parse("5.3e2").Evaluate(5), 1e-10);
+            Assert.AreEqual(530, parser.Parse("5.3e+2").Evaluate(5), 1e-10);
+            Assert.AreEqual(530, parser.Parse("5.3E2").Evaluate(5), 1e-10);
+            Assert.AreEqual(0.3, parser.Parse("3e-1").Evaluate(5), 1e-10);
+            Assert.AreEqual(0.3, parser.Parse("3.e-1").Evaluate(5), 1e-10);
+            Assert.AreEqual(0.3, parser.Parse("3.0e-1").Evaluate(5), 1e-10);
+            Assert.AreEqual(0.3, parser.Parse("3E-1").Evaluate(5), 1e-10);
+            Assert.AreEqual(0, parser.Parse("0.E0").Evaluate(5), 1e-10);
+            Assert.AreEqual(3.14159, parser.Parse("314159E-5").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodReturnsExpressionForAnExpressionConsistingOfThatValueOnlyEnclosedInParentheses()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(7, parser.Parse("(7)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(7.3, parser.Parse("( 7.3 )").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(7.5, parser.Parse(" ( 7.5 ) ").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(7, parser.Parse("(7)").Evaluate(5), 1e-10);
+            Assert.AreEqual(7.3, parser.Parse("( 7.3 )").Evaluate(5), 1e-10);
+            Assert.AreEqual(7.5, parser.Parse(" ( 7.5 ) ").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
@@ -161,49 +161,49 @@ namespace Parser
         public void ParseMethodEvaluatesToSumOfTwoConstants()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(5, parser.Parse("2+3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(5, parser.Parse("2 +3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(5, parser.Parse("2+ 3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(5, parser.Parse("2+3").Evaluate(5), 1e-10);
+            Assert.AreEqual(5, parser.Parse("2 +3").Evaluate(5), 1e-10);
+            Assert.AreEqual(5, parser.Parse("2+ 3").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodEvaluatesToDifferenceOfTwoConstants()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(-1, parser.Parse("2-3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(1, parser.Parse("3 - 2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(-1, parser.Parse("2-3").Evaluate(5), 1e-10);
+            Assert.AreEqual(1, parser.Parse("3 - 2").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodEvaluatesToProductOfTwoConstants()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(6, parser.Parse("2*3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(6, parser.Parse("3 * 2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(6, parser.Parse("2*3").Evaluate(5), 1e-10);
+            Assert.AreEqual(6, parser.Parse("3 * 2").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodEvaluatesToQuotientOfTwoConstants()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(2 / 3.0, parser.Parse("2 / 3").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(2.5, parser.Parse("5 / 2").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(2 / 3.0, parser.Parse("2 / 3").Evaluate(5), 1e-10);
+            Assert.AreEqual(2.5, parser.Parse("5 / 2").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodEvaluatesResultOfSeveralOperationsOfSamePrecedenceOnConstants()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(18, parser.Parse("2 + 3 + 13").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(-7, parser.Parse("2 + 3 - 12").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
-            Assert.AreEqual(6 / 4.0, parser.Parse("2 * 3 / 4").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(18, parser.Parse("2 + 3 + 13").Evaluate(5), 1e-10);
+            Assert.AreEqual(-7, parser.Parse("2 + 3 - 12").Evaluate(5), 1e-10);
+            Assert.AreEqual(6 / 4.0, parser.Parse("2 * 3 / 4").Evaluate(5), 1e-10);
         }
 
         [TestMethod]
         public void ParseMethodReturnsExpressionForAnExpressionConsistingOfOperationsOnConstantsEnclosedInParentheses()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(10, parser.Parse("(7 + 3)").Interpret(new MathematicalExpressionEvaluator.Expressions.Context(5)), 1e-10);
+            Assert.AreEqual(10, parser.Parse("(7 + 3)").Evaluate(5), 1e-10);
         }
 
         [TestMethod]

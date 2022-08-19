@@ -28,7 +28,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
     public abstract class Expression : IExpression
     {
         /// <summary>
-        ///   Evaluates value of the expression fro the context provided.
+        ///   Evaluates value of the expression for the context provided.
         /// </summary>
         /// <param name="context">
         ///   <c>Context</c> object with current values of variables.
@@ -36,11 +36,21 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Evaluated value.
         /// </returns>
-        public double Interpret(Context context)
+        double IExpression.Evaluate(Context context)
         {
             if (isPositive)
-                return DoInterpret(context);
-            return -DoInterpret(context);
+                return DoEvaluate(context);
+            return -DoEvaluate(context);
+        }
+
+        public double Evaluate(double value)
+        {
+            return ((IExpression)this).Evaluate(new Context(value));
+        }
+
+        public double Evaluate(params (string, double)[] values)
+        {
+            return ((IExpression)this).Evaluate(new Context(values));
         }
 
         /// <summary>
@@ -60,7 +70,7 @@ namespace JSribar.MathematicalExpressionEvaluator.Expressions
         /// <returns>
         ///   Evaluated value.
         /// </returns>
-        protected abstract double DoInterpret(Context context);
+        protected abstract double DoEvaluate(Context context);
 
         /// <summary>
         ///   Current sign of the expression.

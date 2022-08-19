@@ -13,8 +13,7 @@ namespace Expressions
             var right = new MathematicalExpressionEvaluator.Expressions.Constant(4);
             var difference = new MathematicalExpressionEvaluator.Expressions.SubtractExpression(left, right);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(5);
-            Assert.AreEqual(12, difference.Interpret(context), 1e-10);
+            Assert.AreEqual(12, difference.Evaluate(5), 1e-10);
         }
 
         [TestMethod]
@@ -24,8 +23,7 @@ namespace Expressions
             var right = new MathematicalExpressionEvaluator.Expressions.Constant(5);
             var difference = new MathematicalExpressionEvaluator.Expressions.SubtractExpression(left, right);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(3);
-            Assert.AreEqual(-2, difference.Interpret(context), 1e-10);
+            Assert.AreEqual(-2, difference.Evaluate(3), 1e-10);
         }
 
         [TestMethod]
@@ -35,8 +33,7 @@ namespace Expressions
             var right = new MathematicalExpressionEvaluator.Expressions.Variable();
             var difference = new MathematicalExpressionEvaluator.Expressions.SubtractExpression(left, right);
 
-            var context = new MathematicalExpressionEvaluator.Expressions.Context(4);
-            Assert.AreEqual(0, difference.Interpret(context), 1e-10);
+            Assert.AreEqual(0, difference.Evaluate(4), 1e-10);
         }
     }
 }

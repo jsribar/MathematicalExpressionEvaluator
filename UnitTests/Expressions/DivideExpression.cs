@@ -11,7 +11,7 @@ namespace Expressions
         {
             var left = new MathematicalExpressionEvaluator.Expressions.Constant(3);
             var right = new MathematicalExpressionEvaluator.Expressions.Constant(2);
-            Assert.AreEqual(1.5, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Interpret(new MathematicalExpressionEvaluator.Expressions.Context(24)), 1e-10);
+            Assert.AreEqual(1.5, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Evaluate(24), 1e-10);
         }
 
         [TestMethod]
@@ -19,7 +19,7 @@ namespace Expressions
         {
             var left = new MathematicalExpressionEvaluator.Expressions.Constant(4);
             var right = new MathematicalExpressionEvaluator.Expressions.Variable();
-            Assert.AreEqual(0.5, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Interpret(new MathematicalExpressionEvaluator.Expressions.Context(8)), 1e-10);
+            Assert.AreEqual(0.5, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Evaluate(8), 1e-10);
         }
 
         [TestMethod]
@@ -27,8 +27,8 @@ namespace Expressions
         {
             var left = new MathematicalExpressionEvaluator.Expressions.Variable();
             var right = new MathematicalExpressionEvaluator.Expressions.Variable();
-            Assert.AreEqual(1, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Interpret(new MathematicalExpressionEvaluator.Expressions.Context(8)), 1e-10);
-            Assert.AreEqual(1, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Interpret(new MathematicalExpressionEvaluator.Expressions.Context(4)), 1e-10);
+            Assert.AreEqual(1, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Evaluate(8), 1e-10);
+            Assert.AreEqual(1, new MathematicalExpressionEvaluator.Expressions.DivideExpression(left, right).Evaluate(4), 1e-10);
         }
     }
 }
