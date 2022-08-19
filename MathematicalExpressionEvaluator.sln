@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathematicalExpressionEvaluator", "MathematicalExpressionEvaluator\MathematicalExpressionEvaluator.csproj", "{2AAAD0F3-A30C-46CA-95CA-851EB5201533}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests45", "UnitTests45\UnitTests45.csproj", "{39CA6760-E2B9-433D-9682-5A400E36BA21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2AAAD0F3-A30C-46CA-95CA-851EB5201533}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AAAD0F3-A30C-46CA-95CA-851EB5201533}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AAAD0F3-A30C-46CA-95CA-851EB5201533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CA6760-E2B9-433D-9682-5A400E36BA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CA6760-E2B9-433D-9682-5A400E36BA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CA6760-E2B9-433D-9682-5A400E36BA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CA6760-E2B9-433D-9682-5A400E36BA21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

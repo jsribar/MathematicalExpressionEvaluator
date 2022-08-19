@@ -23,6 +23,7 @@ namespace Parser
             Assert.AreEqual(Math.PI / 2, parser.Parse("acos(0)").Evaluate(5), 1e-10);
         }
 
+#if NET6_0_OR_GREATER
         [TestMethod]
         public void AcoshFunction()
         {
@@ -30,6 +31,7 @@ namespace Parser
             Assert.AreEqual(0, parser.Parse("acosh(1)").Evaluate(5), 1e-10);
             Assert.AreEqual(Math.Acosh(2), parser.Parse("acosh(2)").Evaluate(5), 1e-10);
         }
+#endif
 
         [TestMethod]
         public void AsinFunction()
@@ -39,6 +41,7 @@ namespace Parser
             Assert.AreEqual(Math.PI / 2, parser.Parse("asin(1)").Evaluate(5), 1e-10);
         }
 
+#if NET6_0_OR_GREATER
         [TestMethod]
         public void AsinhFunction()
         {
@@ -46,6 +49,7 @@ namespace Parser
             Assert.AreEqual(0, parser.Parse("asinh(0)").Evaluate(5), 1e-10);
             Assert.AreEqual(Math.Asinh(1), parser.Parse("asinh(1)").Evaluate(5), 1e-10);
         }
+#endif
 
         [TestMethod]
         public void AtanFunction()
@@ -63,6 +67,7 @@ namespace Parser
             Assert.AreEqual(-Math.PI / 4, parser.Parse("atan2(-1, 1)").Evaluate(5), 1e-10);
         }
 
+#if NET6_0_OR_GREATER
         [TestMethod]
         public void AtanhFunction()
         {
@@ -70,6 +75,7 @@ namespace Parser
             Assert.AreEqual(0, parser.Parse("atanh(0)").Evaluate(5), 1e-10);
             Assert.AreEqual(Math.Atanh(0.5), parser.Parse("atanh(0.5)").Evaluate(5), 1e-10);
         }
+#endif
 
         [TestMethod]
         public void CosFunction()
@@ -114,13 +120,15 @@ namespace Parser
             Assert.AreEqual(1, parser.Parse("log10(10)").Evaluate(5), 1e-10);
         }
 
+#if NET6_0_OR_GREATER
         [TestMethod]
         public void Log2Function()
         {
             var parser = new MathematicalExpressionEvaluator.Parser();
-            Assert.AreEqual(0, parser.Parse("log2(1)").Evaluate(5), 1e-10);
-            Assert.AreEqual(1, parser.Parse("log2(2)").Evaluate(5), 1e-10);
+            Assert.AreEqual(Math.Log2(1), parser.Parse("log2(1)").Evaluate(5), 1e-10);
+            Assert.AreEqual(Math.Log2(2), parser.Parse("log2(2)").Evaluate(5), 1e-10);
         }
+#endif
 
         [TestMethod]
         public void SinFunction()
