@@ -167,7 +167,7 @@ var expression = parser.Parse("sin(time / (2 * PI))");
 __Note__: If name of identifier is already used for existing function or constant, parser throws <code>IdentifierException</code>.
 
 ### Using multiple variables
-To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Context</code> constructor as a collection of <code>string</code> - <code>double></code> tuples, with variable identifiers and corresponding values.
+To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Evaluate/code> method as a collection of <code>string</code> - <code>double></code> tuples, with variable identifiers and corresponding values.
 
 ```csharp
 // Use 'x' and 'y' identifiers:
@@ -223,7 +223,7 @@ This exception will be thrown by <code>Parse</code> method when error is encount
 This exception will be thrown:
 1. When custom identifier passed to the <code>Parser</code> has invalid format (it must not be empty, must start with letter followed by a sequence of letters and digits only).
 2. When user defined function or constant identifier passed to <code>AddConstant</code>, <code>AddFunction</code> or <code>AddFunction2</code> method has invalid format or is already used for some function or constant.
-3. When not all identifier values are supplied to the <code>Context</code> constructor.
+3. When not all identifier values are supplied to the <code>Evaluate</code> method.
 
 Exception contains two properties/fields:
 * <code>Message</code> - string with error message,
