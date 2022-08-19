@@ -45,5 +45,12 @@ namespace Parser
             Assert.AreEqual(2.0 / 3, parser.Parse("2 ÷ 3").Evaluate(5), 1e-10);
             Assert.AreEqual(3.0 / 2, parser.Parse("3 \u00F7 2").Evaluate(5), 1e-10);
         }
+
+        [TestMethod]
+        public void ParseMethodReturnsExpressionForDivisionUsingColon()
+        {
+            var parser = new MathematicalExpressionEvaluator.Parser();
+            Assert.AreEqual(2.0 / 3, parser.Parse("2 : 3").Evaluate(5), 1e-10);
+        }
     }
 }

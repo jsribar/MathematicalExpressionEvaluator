@@ -389,6 +389,7 @@ namespace JSribar.MathematicalExpressionEvaluator
                     PushOperator(Operator.Multiplication);
                     return;
                 case '/':
+                case ':':
                 case '÷': // U+00F7
                     PushOperator(Operator.Division);
                     return;
