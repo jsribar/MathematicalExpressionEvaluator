@@ -181,28 +181,29 @@ var result = expression.Evaluate(("x", 2), ("y", 3));
 
 ## Built-in Functions
 Following functions are built-in and directly available:
-| Identifier                           | Function invoked                                                                         | Remark        |
-| ------------------------------------ | ---------------------------------------------------------------------------------------- | ------------- |
-| <code>abs</code>                     | [<code>Math.Abs</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.abs)     |               |
-| <code>acos</code>                    | [<code>Math.Acos</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.acos)   |               |
-| <code>acosh</code>                   | [<code>Math.Acosh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.acosh) | .NET 6.0 only |
-| <code>asin</code>                    | [<code>Math.Asin</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.asin)   |               |
-| <code>asinh</code>                   | [<code>Math.Asinh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.asinh) | .NET 6.0 only |
-| <code>atan</code>                    | [<code>Math.Atan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan)   |               |
-| <code>atan2</code>                   | [<code>Math.Atan2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan2) | two arguments |
-| <code>atanh</code>                   | [<code>Math.Atanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atanh) | .NET 6.0 only |
-| <code>cos</code>                     | [<code>Math.Cos</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cos)     |               |
-| <code>cosh</code>                    | [<code>Math.Cosh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cosh)   |               |
-| <code>exp</code>                     | [<code>Math.Exp</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.exp)     |               |
-| <code>ln</code>                      | [<code>Math.Log</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log)     |               |
-| <code>log</code>, <code>log10</code> | [<code>Math.Log10</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log10) |               |
-| <code>log2</code>                    | [<code>Math.Log2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log2)   | .NET 6.0 only |
-| <code>pow</code>                     | [<code>Math.Atan2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pow)   | two arguments |
-| <code>sin</code>                     | [<code>Math.Sin</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sin)     |               |
-| <code>sinh</code>                    | [<code>Math.Sinh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sinh)   |               |
-| <code>sqrt</code>                    | [<code>Math.Sqrt</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sqrt)   |               |
-| <code>tan</code> , <code>tg</code>   | [<code>Math.Tan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tan)     |               |
-| <code>tanh</code>                    | [<code>Math.Tanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tanh)   |               |
+| Identifier                           | Function invoked                                                                         | Remark              |
+| ------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------- |
+| <code>abs</code>                     | [<code>Math.Abs</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.abs)     |                     |
+| <code>acos</code>                    | [<code>Math.Acos</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.acos)   |                     |
+| <code>acosh</code>                   | [<code>Math.Acosh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.acosh) | .NET 5.0 or higher  |
+| <code>asin</code>                    | [<code>Math.Asin</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.asin)   |                     |
+| <code>asinh</code>                   | [<code>Math.Asinh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.asinh) | .NET 5.0 or higher  |
+| <code>atan</code>                    | [<code>Math.Atan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan)   |                     |
+| <code>atan2</code>                   | [<code>Math.Atan2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan2) | two arguments       |
+| <code>atanh</code>                   | [<code>Math.Atanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atanh) | .NET 5.0 or higher  |
+| <code>cbrt</code>                    | [<code>Math.Cbrt</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cbrt)   | .NET 5.0 or higher  |
+| <code>cos</code>                     | [<code>Math.Cos</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cos)     |                     |
+| <code>cosh</code>                    | [<code>Math.Cosh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cosh)   |                     |
+| <code>exp</code>                     | [<code>Math.Exp</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.exp)     |                     |
+| <code>ln</code>                      | [<code>Math.Log</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log)     |                     |
+| <code>log</code>, <code>log10</code> | [<code>Math.Log10</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log10) |                     |
+| <code>log2</code>                    | [<code>Math.Log2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log2)   | .NET 5.0 or higher  |
+| <code>pow</code>                     | [<code>Math.Atan2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pow)   | two arguments       |
+| <code>sin</code>                     | [<code>Math.Sin</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sin)     |                     |
+| <code>sinh</code>                    | [<code>Math.Sinh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sinh)   |                     |
+| <code>sqrt</code>                    | [<code>Math.Sqrt</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sqrt)   |                     |
+| <code>tan</code> , <code>tg</code>   | [<code>Math.Tan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tan)     |                     |
+| <code>tanh</code>                    | [<code>Math.Tanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tanh)   |                     |
 
 ## Built-in Mathematical Constants
 Following mathematical constants are built-in and directly available:

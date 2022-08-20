@@ -90,10 +90,11 @@ namespace JSribar.MathematicalExpressionEvaluator
             Sqrt,
             Tan,
             Tanh,
-#if NET6_0
+#if NET5_0_OR_GREATER
             Acosh,
             Asinh,
             Atanh,
+            Cbrt,
             Log2,
 #endif
             // functions with two arguments
@@ -127,10 +128,11 @@ namespace JSribar.MathematicalExpressionEvaluator
             { "tan", Operator.Tan },
             { "tg", Operator.Tan },
             { "tanh", Operator.Tanh },
-#if NET6_0
+#if NET5_0_OR_GREATER
             { "acosh", Operator.Acosh },
             { "asinh", Operator.Asinh },
             { "atanh", Operator.Atanh },
+            { "cbrt", Operator.Cbrt },
             { "log2", Operator.Log2 },
 #endif       
             // functions with two arguments
@@ -157,10 +159,11 @@ namespace JSribar.MathematicalExpressionEvaluator
             { Operator.Sqrt, Math.Sqrt },
             { Operator.Tan, Math.Tan},
             { Operator.Tanh, Math.Tanh},
-#if NET6_0
+#if NET5_0_OR_GREATER
             { Operator.Acosh, Math.Acosh },
             { Operator.Asinh, Math.Asinh },
             { Operator.Atanh, Math.Atanh },
+            { Operator.Cbrt, Math.Cbrt },
             { Operator.Log2, Math.Log2 },
 #endif
         };
