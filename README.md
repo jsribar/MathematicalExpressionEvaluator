@@ -230,3 +230,10 @@ Exception contains two properties/fields:
 * <code>Message</code> - string with error message,
 * <code>Identifier</code> - string with identifier that caused the error.
 
+## How to Add New Function or Constant into Code
+To add a new function, open <code>Parser.Functions.cs</code> file:
+1. Append new <code>Operator</code> enumeration value for the function.
+2. Append entry to <code>functionTokenMap</code> dictionary with new function identifer as a key and enumeration value from the step 1 as a value.
+3. Append entry to <code>functionMap</code> dictionary with enumeration value from step 1 as a key and the function as a value. __Note__: if function accepts two arguments, it should be appended to <code>functionMap2</code> dictionary.
+
+To add a new constant, open <code>Parser.Constants.cs</code> file and append new entry to <code>mathematicalConstantsMap</code> with new constant identifier as dictionary key and constant value as entry value.
