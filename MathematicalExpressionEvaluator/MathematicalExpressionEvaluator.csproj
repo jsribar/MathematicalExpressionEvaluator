@@ -5,7 +5,33 @@
     <IsPackable>true</IsPackable>
     <OutputType>Library</OutputType>
     <RootNamespace>JSribar.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>JSribar.$(AssemblyName)</PackageId>
+    <Title>Mathematical Expression Parser and Evaluator</Title>
+    <Authors>jsribar</Authors>
+    <Description>Easily expandable parser and evaluator of mathematical expressions with one or more variables</Description>
+    <Copyright>Copyright © Julijan Šribar 2022</Copyright>
+    <PackageProjectUrl>https://github.com/jsribar/MathematicalExpressionEvaluator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jsribar/MathematicalExpressionEvaluator</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>mathematical expression; parsing; evaluation</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
