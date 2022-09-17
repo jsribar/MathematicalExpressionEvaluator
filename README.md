@@ -6,7 +6,7 @@ Project was initially created as a demonstration of [Interpreter design pattern]
 ## Features
 Basic features of the library:
 * Supports basic arithmentic operations, using both ASCII characters and Unicode mathematical signs:
-    * addition (<code>+</code>), 
+    * addition (`+`), 
     * subtraction (<code>-</code>, U+2212 <code>−</code>), 
     * multiplication (<code>*</code>, U+00D7 <code>×</code>, U+22C5 <code>⋅</code>), 
     * division (<code>/</code>, <code>:</code>, U+00F7 <code>÷</code>), 
