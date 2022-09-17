@@ -7,11 +7,11 @@ Project was initially created as a demonstration of [Interpreter design pattern]
 Basic features of the library:
 * Supports basic arithmentic operations, using both ASCII characters and Unicode mathematical signs:
     * addition (`+`), 
-    * subtraction (<code>-</code>, U+2212 <code>−</code>), 
-    * multiplication (<code>*</code>, U+00D7 <code>×</code>, U+22C5 <code>⋅</code>), 
-    * division (<code>/</code>, <code>:</code>, U+00F7 <code>÷</code>), 
-    * exponentiation (<code>^</code>). 
-* Allows extra sign (<code>-</code>, U+2212 <code>−</code> or <code>+</code>) preceding a value, function or variable.
+    * subtraction (`-`, U+2212 `−`), 
+    * multiplication (`*`, U+00D7 `×`, U+22C5 `⋅`), 
+    * division (`/`, `:`, U+00F7 `÷`), 
+    * exponentiation (`^`). 
+* Allows extra sign (`-`, U+2212 `−` or `+`) preceding a value, function or variable.
 * Takes care of operator precedence. 
 * Supports parentheses to override operator precedence. 
 * Supports standard mathematical functions with one (e.g. _sin_, _sqrt_) or two arguments (e.g. _atan2_, _pow_) that can be invoked using corresponding identifiers.
@@ -29,9 +29,9 @@ How to evaluate expression
 _x_ + 3
 
 for a value of _x_=2:
-1. Create <code>Parser</code> object.
-2. Invoke <code>Parse</code> method and pass the string with mathematical expression. On success, <code>Parse</code> method returns final <code>IExpression</code> object evaluated as a composition of expressions from operations parsed.
-3. Invoke <code>Evaluate</code> method of the object returned by <code>Parse</code> method in step 2. Value of the variable must be passed as argument to the  method and method returns the value of mathematical expression for the value of variable _x_ provided.
+1. Create `Parser` object.
+2. Invoke `Parse` method and pass the string with mathematical expression. On success, `Parse` method returns final `IExpression` object evaluated as a composition of expressions from operations parsed.
+3. Invoke `Evaluate` method of the object returned by `Parse` method in step 2. Value of the variable must be passed as argument to the  method and method returns the value of mathematical expression for the value of variable _x_ provided.
 
 ```csharp
 using JSribar.MathematicalExpressionEvaluator;
@@ -49,7 +49,7 @@ Console.WriteLine($"Value of {mathExpression} for x={x} is {result}");
 //...
 var mathExpression = " x+3 ";
 ```
-**Note 2**: Expression object returned by <code>Parse</code> method can be reused to evaluate expression for different values of the variable. For example, to evaluate the expression for a range of _x_:
+**Note 2**: Expression object returned by `Parse` method can be reused to evaluate expression for different values of the variable. For example, to evaluate the expression for a range of _x_:
 
 ```csharp
 var parser = new Parser();
@@ -111,9 +111,9 @@ var mathExpression = "x + tan(PI / x)";
 var result = mathExpression.Evaluate(4);
 // ...
 ```
-__Note 1__: Left parenthesis must follow function name immediately, otherwise <code>ParserException</code> is thrown.
+__Note 1__: Left parenthesis must follow function name immediately, otherwise `ParserException` is thrown.
 
-__Note 2__: Mathematical constant _π_ can be written also as a Greek character π in the expression string, i.e. <code>"x + tan(π / x)"</code>.
+__Note 2__: Mathematical constant _π_ can be written also as a Greek character π in the expression string, i.e. `"x + tan(π / x)"`.
 
 ### Expression with preceding sign
 Evaluate expression
@@ -128,10 +128,10 @@ var mathExpression = "-x +-tan(PI / x)";
 var result = mathExpression.Evaluate(4); 
 // ...
 ```
-__Note__: Preceding sign must be followed immediately by constant, variable or function name (no whitespaces are allowed), otherwise <code>ParserException</code> is thrown.
+__Note__: Preceding sign must be followed immediately by constant, variable or function name (no whitespaces are allowed), otherwise `ParserException` is thrown.
 
 ### Adding custom function and constant
-Custom function can be added in runtime by <code>AddFunction</code> or <code>AddFunction2</code> methods, for functions with single or two arguments, respectively. Custom constants can be added by <code>AddConstant</code> method.
+Custom function can be added in runtime by `AddFunction` or `AddFunction2` methods, for functions with single or two arguments, respectively. Custom constants can be added by `AddConstant` method.
 
 ```csharp
 // User defined function:
@@ -150,12 +150,12 @@ var result = expression.Evaluate(3);
 // ...
 ```
 
-__Note 1__: Functions and constants must be added before invoking <code>Parse</code> method with expression that uses them in order to parse the expression correctly.
+__Note 1__: Functions and constants must be added before invoking `Parse` method with expression that uses them in order to parse the expression correctly.
 
-__Note 2__: If name of function or constant is already used for existing function or constant, parser throws <code>IdentifierException</code>.
+__Note 2__: If name of function or constant is already used for existing function or constant, parser throws `IdentifierException`.
 
 ### Using different identifier for a variable
-Parser assumes that variable is named _x_ by default. If you need to use different identifier for a variable, simply provide the identifier to the <code>Parser</code> constructor:
+Parser assumes that variable is named _x_ by default. If you need to use different identifier for a variable, simply provide the identifier to the `Parser` constructor:
 
 ```csharp
 // Use 'time' instead of default 'x' identifier for variable:
@@ -164,10 +164,10 @@ var expression = parser.Parse("sin(time / (2 * PI))");
 // ...
 ```
 
-__Note__: If name of identifier is already used for existing function or constant, parser throws <code>IdentifierException</code>.
+__Note__: If name of identifier is already used for existing function or constant, parser throws `IdentifierException`.
 
 ### Using multiple variables
-To evaluate expression with multiple variables, variable identifiers must be passed to the <code>Parser</code> as a collection of strings. Actual values of variables for a given context must be passed to the <code>Evaluate</code> method as a collection of <code>string</code> - <code>double</code> tuples, with variable identifiers and corresponding values.
+To evaluate expression with multiple variables, variable identifiers must be passed to the `Parser` as a collection of strings. Actual values of variables for a given context must be passed to the `Evaluate` method as a collection of `string` - `double` tuples, with variable identifiers and corresponding values.
 
 ```csharp
 // Use 'x' and 'y' identifiers:
@@ -181,59 +181,59 @@ var result = expression.Evaluate(("x", 2), ("y", 3));
 
 ## Built-in Functions
 Following functions are built-in and directly available:
-| Identifier                           | Function invoked                                                                         | Remark              |
-| ------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------- |
-| <code>abs</code>                     | [<code>Math.Abs</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.abs)     |                     |
-| <code>acos</code>                    | [<code>Math.Acos</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.acos)   |                     |
-| <code>acosh</code>                   | [<code>Math.Acosh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.acosh) | .NET 5.0 or higher  |
-| <code>asin</code>                    | [<code>Math.Asin</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.asin)   |                     |
-| <code>asinh</code>                   | [<code>Math.Asinh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.asinh) | .NET 5.0 or higher  |
-| <code>atan</code>                    | [<code>Math.Atan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan)   |                     |
-| <code>atan2</code>                   | [<code>Math.Atan2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan2) | two arguments       |
-| <code>atanh</code>                   | [<code>Math.Atanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.atanh) | .NET 5.0 or higher  |
-| <code>cbrt</code>                    | [<code>Math.Cbrt</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cbrt)   | .NET 5.0 or higher  |
-| <code>cos</code>                     | [<code>Math.Cos</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cos)     |                     |
-| <code>cosh</code>                    | [<code>Math.Cosh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.cosh)   |                     |
-| <code>exp</code>                     | [<code>Math.Exp</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.exp)     |                     |
-| <code>ln</code>                      | [<code>Math.Log</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log)     |                     |
-| <code>log</code>, <code>log10</code> | [<code>Math.Log10</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log10) |                     |
-| <code>log2</code>                    | [<code>Math.Log2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.log2)   | .NET 5.0 or higher  |
-| <code>pow</code>                     | [<code>Math.Atan2</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pow)   | two arguments       |
-| <code>sin</code>                     | [<code>Math.Sin</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sin)     |                     |
-| <code>sinh</code>                    | [<code>Math.Sinh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sinh)   |                     |
-| <code>sqrt</code>                    | [<code>Math.Sqrt</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.sqrt)   |                     |
-| <code>tan</code> , <code>tg</code>   | [<code>Math.Tan</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tan)     |                     |
-| <code>tanh</code>                    | [<code>Math.Tanh</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.tanh)   |                     |
+| Identifier                           | Function invoked                                             | Remark             |
+| ------------------------------------ | ------------------------------------------------------------ | ------------------ |
+| `abs`                     | [`Math.Abs`](https://docs.microsoft.com/en-us/dotnet/api/system.math.abs) |                    |
+| `acos`                    | [`Math.Acos`](https://docs.microsoft.com/en-us/dotnet/api/system.math.acos) |                    |
+| `acosh`                   | [`Math.Acosh`](https://docs.microsoft.com/en-us/dotnet/api/system.math.acosh) | .NET 5.0 or higher |
+| `asin`                    | [`Math.Asin`](https://docs.microsoft.com/en-us/dotnet/api/system.math.asin) |                    |
+| `asinh`                   | [`Math.Asinh`](https://docs.microsoft.com/en-us/dotnet/api/system.math.asinh) | .NET 5.0 or higher |
+| `atan`                    | [`Math.Atan`](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan) |                    |
+| `atan2`                   | [`Math.Atan2`](https://docs.microsoft.com/en-us/dotnet/api/system.math.atan2) | two arguments      |
+| `atanh`                   | [`Math.Atanh`](https://docs.microsoft.com/en-us/dotnet/api/system.math.atanh) | .NET 5.0 or higher |
+| `cbrt`                    | [`Math.Cbrt`](https://docs.microsoft.com/en-us/dotnet/api/system.math.cbrt) | .NET 5.0 or higher |
+| `cos`                     | [`Math.Cos`](https://docs.microsoft.com/en-us/dotnet/api/system.math.cos) |                    |
+| `cosh`                    | [`Math.Cosh`](https://docs.microsoft.com/en-us/dotnet/api/system.math.cosh) |                    |
+| `exp`                     | [`Math.Exp`](https://docs.microsoft.com/en-us/dotnet/api/system.math.exp) |                    |
+| `ln`                      | [`Math.Log`](https://docs.microsoft.com/en-us/dotnet/api/system.math.log) |                    |
+| `log`, `log10` | [`Math.Log10`](https://docs.microsoft.com/en-us/dotnet/api/system.math.log10) |                    |
+| `log2`                    | [`Math.Log2`](https://docs.microsoft.com/en-us/dotnet/api/system.math.log2) | .NET 5.0 or higher |
+| `pow`                     | [`Math.Atan2`](https://docs.microsoft.com/en-us/dotnet/api/system.math.pow) | two arguments      |
+| `sin`                     | [`Math.Sin`](https://docs.microsoft.com/en-us/dotnet/api/system.math.sin) |                    |
+| `sinh`                    | [`Math.Sinh`](https://docs.microsoft.com/en-us/dotnet/api/system.math.sinh) |                    |
+| `sqrt`                    | [`Math.Sqrt`](https://docs.microsoft.com/en-us/dotnet/api/system.math.sqrt) |                    |
+| `tan` , `tg`   | [`Math.Tan`](https://docs.microsoft.com/en-us/dotnet/api/system.math.tan) |                    |
+| `tanh`                    | [`Math.Tanh`](https://docs.microsoft.com/en-us/dotnet/api/system.math.tanh) |                    |
 
 ## Built-in Mathematical Constants
 Following mathematical constants are built-in and directly available:
-| Identifier                           | Field invoked                                                                       |
-| ------------------------------------ | ----------------------------------------------------------------------------------- |
-| <code>E</code>                       | [<code>Math.E</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.e)    |
-| <code>PI</code>, <code>π</code>      | [<code>Math.PI</code>](https://docs.microsoft.com/en-us/dotnet/api/system.math.pi)  |
+| Identifier                      | Field invoked                                                |
+| ------------------------------- | ------------------------------------------------------------ |
+| `E`                  | [`Math.E`](https://docs.microsoft.com/en-us/dotnet/api/system.math.e) |
+| `PI`, `π` | [`Math.PI`](https://docs.microsoft.com/en-us/dotnet/api/system.math.pi) |
 
 ## Error Reporting
-Errors are reported through <code>ParserException</code> and <code>IdentifierException</code>.
+Errors are reported through `ParserException` and `IdentifierException`.
 
-### <code>ParserException</code>
-This exception will be thrown by <code>Parse</code> method when error is encountered in expression string being parsed. <code>ParserException</code> contains two properties/fields:
-* <code>Message</code> - string with error message,
-* <code>Position</code> - integer with the position in input expression string where error occured.
+### `ParserException`
+This exception will be thrown by `Parse` method when error is encountered in expression string being parsed. `ParserException` contains two properties/fields:
+* `Message` - string with error message,
+* `Position` - integer with the position in input expression string where error occured.
 
-### <code>IdentifierException</code>
+### `IdentifierException`
 This exception will be thrown:
-1. When custom identifier passed to the <code>Parser</code> has invalid format (it must not be empty, must start with letter followed by a sequence of letters and digits only).
-2. When user defined function or constant identifier passed to <code>AddConstant</code>, <code>AddFunction</code> or <code>AddFunction2</code> method has invalid format or is already used for some function or constant.
-3. When not all identifier values are supplied to the <code>Evaluate</code> method.
+1. When custom identifier passed to the `Parser` has invalid format (it must not be empty, must start with letter followed by a sequence of letters and digits only).
+2. When user defined function or constant identifier passed to `AddConstant`, `AddFunction` or `AddFunction2` method has invalid format or is already used for some function or constant.
+3. When not all identifier values are supplied to the `Evaluate` method.
 
 Exception contains two properties/fields:
-* <code>Message</code> - string with error message,
-* <code>Identifier</code> - string with identifier that caused the error.
+* `Message` - string with error message,
+* `Identifier` - string with identifier that caused the error.
 
 ## How to Add New Function or Constant into Code
-To add a new function, open <code>Parser.Functions.cs</code> file:
-1. Append new <code>Operator</code> enumeration value for the function.
-2. Append entry to <code>functionTokenMap</code> dictionary with new function identifer as a key and enumeration value from the step 1 as a value.
-3. Append entry to <code>functionMap</code> dictionary with enumeration value from step 1 as a key and the function as a value. __Note__: if function accepts two arguments, it should be appended to <code>functionMap2</code> dictionary.
+To add a new function, open `Parser.Functions.cs` file:
+1. Append new `Operator` enumeration value for the function.
+2. Append entry to `functionTokenMap` dictionary with new function identifer as a key and enumeration value from the step 1 as a value.
+3. Append entry to `functionMap` dictionary with enumeration value from step 1 as a key and the function as a value. __Note__: if function accepts two arguments, it should be appended to `functionMap2` dictionary.
 
-To add a new constant, open <code>Parser.Constants.cs</code> file and append new entry to <code>mathematicalConstantsMap</code> with new constant identifier as dictionary key and constant value as entry value.
+To add a new constant, open `Parser.Constants.cs` file and append new entry to `mathematicalConstantsMap` with new constant identifier as dictionary key and constant value as entry value.
