@@ -142,7 +142,7 @@ static double Hypotenuse(double a, double b)
 // ...
 var parser = new Parser();
 // Add user defined mathematical function 'Hypotenuse':
-parser.AddFuncion2("hypotenuse", Hypotenuse);
+parser.AddFunction2("hypotenuse", Hypotenuse);
 // Add mathematical constant 'two' with value of 2:
 parser.AddConstant("two", 2);
 var expression = parser.Parse("hypotenuse(x, 2 * two)");
